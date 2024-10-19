@@ -2,8 +2,16 @@
 
 ## Предварительные шаги
 
-1. На Windows и MacOS можно установить [Docker Desktop](https://www.docker.com/products/docker-desktop/). На Linux тоже, но лучше просто установить пакет `docker-ce`, перед этим добавив соответствующий репозиторий. Инструкции для основных дистрибутивов можно найти [здесь](https://docs.docker.com/engine/install/). 
+1. На Windows и macOS можно установить [Docker Desktop](https://www.docker.com/products/docker-desktop/). На Linux тоже, но лучше просто установить пакет `docker-ce`, перед этим добавив соответствующий репозиторий. Инструкции для основных дистрибутивов можно найти [здесь](https://docs.docker.com/engine/install/). 
 2. Запустить демон Docker'а (при работе с Docker Desktop достаточно просто открыть само приложение).
+3. Создать файл `docker/.env` с содержимым ниже, дописав в конце пароль (любой) после знака `=`:
+
+```dotenv
+POSTGRES_HOST=nrs-database
+POSTGRES_DB=nrs
+POSTGRES_USER=nrs
+POSTGRES_PASSWORD=
+```
 
 
 ## Команды
@@ -34,7 +42,7 @@ docker compose down -v
 Это удобная утилита для управления контейнерами, volume'ами, сетями docker интерактивно прямо из терминала
 
 #### Установка
-Linux и MacOS (Homebrew):
+Linux и macOS (Homebrew):
 ```shell
 brew install lazydocker
 ```
