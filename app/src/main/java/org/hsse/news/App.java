@@ -8,7 +8,5 @@ public class App {
     public static void main(String[] args) {
         App app = new App();
         System.out.println(app.getGreeting());
-
-        String garbage = "unused string";
     }
 }
