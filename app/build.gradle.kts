@@ -1,5 +1,6 @@
 plugins {
     application
+    pmd
     jacoco
     id("com.gradleup.shadow") version "8.3.2"
 }
