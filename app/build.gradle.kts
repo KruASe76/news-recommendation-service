@@ -37,7 +37,7 @@ pmd {
         "category/java/errorprone.xml",
         "category/java/multithreading.xml",
         "category/java/performance.xml",
-        "category/java/security.xml"
+        "category/java/security.xml",
     )
 }
 
