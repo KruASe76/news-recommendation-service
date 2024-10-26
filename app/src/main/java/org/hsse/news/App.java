@@ -1,6 +1,6 @@
 package org.hsse.news;
 
-@SuppressWarnings({"PMD.AtLeastOneConstructor", "PMD.ShortClassName"})
+@SuppressWarnings("PMD.ShortClassName")
 public class App {
     public String getGreeting() {
         return "Hello World!";

@@ -30,15 +30,8 @@ application {
 }
 
 pmd {
-    ruleSets = listOf(
-        "category/java/bestpractices.xml",
-        "category/java/codestyle.xml",
-        "category/java/design.xml",
-        "category/java/errorprone.xml",
-        "category/java/multithreading.xml",
-        "category/java/performance.xml",
-        "category/java/security.xml",
-    )
+    ruleSets = emptyList()
+    ruleSetFiles = files("${projectDir}/src/main/resources/pmd/custom-ruleset.xml")
 }
 
 
