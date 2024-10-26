@@ -29,6 +29,11 @@ application {
     mainClass = "org.hsse.news.App"
 }
 
+pmd {
+    ruleSets = emptyList()
+    ruleSetFiles = files("${projectDir}/src/main/resources/pmd/custom-ruleset.xml")
+}
+
 
 tasks.build {
     dependsOn(tasks.jacocoTestCoverageVerification)
