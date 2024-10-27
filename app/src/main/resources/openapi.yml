@@ -1,0 +1,455 @@
+openapi: 3.1.0
+info:
+  title: News Recommendation Service - OpenAPI
+  version: 0.0.1
+tags:
+  - name: articles
+    description: Operations with news articles
+  - name: topics
+    description: Operations with news topics
+  - name: sources
+    description: Operations with news sources
+  - name: user
+    description: Operations with user
+paths:
+  /articles:
+    get:
+      tags:
+        - articles
+      summary: Get user-specific recent news articles
+      security:
+        - BearerHttpAuthentication: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleList'
+        208:
+          description: No new articles found
+        401:
+          description: Invalid or expired access token
+        422:
+          description: Validation error
+  /topics:
+    get:
+      tags:
+        - topics
+      summary: Get all topics (also custom if authorised)
+      security:
+        - BearerHttpAuthentication: []
+        - {}
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicList'
+        401:
+          description: Invalid or expired access token (if authorization header is provided)
+    put:
+      tags:
+        - topics
+      summary: Set topics for a user
+      security:
+        - BearerHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdList'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid or expired access token
+        413:
+          description: Too many topics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpTooMany'
+        422:
+          description: Validation error
+  /topics/custom:
+    post:
+      tags:
+        - topics
+      summary: Create custom topic
+      security:
+        - BearerHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomTopic'
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+        401:
+          description: Invalid or expired access token
+        409:
+          description: Topic already exists
+        422:
+          description: Validation error
+  /sources:
+    get:
+      tags:
+        - sources
+      summary: Get all sources (also custom if authorised)
+      security:
+        - BearerHttpAuthentication: []
+        - {}
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceList'
+        401:
+          description: Invalid or expired access token (if authorization header is provided)
+    put:
+      tags:
+        - sources
+      summary: Set sources for a user
+      security:
+        - BearerHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdList'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid or expired access token
+        413:
+          description: Too many sources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpTooMany'
+        422:
+          description: Validation error
+  /sources/custom:
+    post:
+      tags:
+        - sources
+      summary: Create custom source
+      security:
+        - BearerHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomSource'
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+        401:
+          description: Invalid or expired access token
+        406:
+          description: Source does not support RSS protocol
+        409:
+          description: Source already exists
+        422:
+          description: Validation error
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: Register
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+      responses:
+        201:
+          description: Success
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpConflict'
+        422:
+          description: Validation error
+  /user:
+    get:
+      tags:
+        - user
+      summary: Get user information
+      security:
+        - BearerHttpAuthentication: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        401:
+          description: Invalid or expired access token
+        404:
+          description: Not found
+    put:
+      tags:
+        - user
+      summary: Change user information
+      security:
+        - BearerHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInfo'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid or expired access token
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpConflict'
+        422:
+          description: Validation error
+  /user/password:
+    put:
+      tags:
+        - user
+      summary: Change user password
+      security:
+        - BearerHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPasswordChange'
+      responses:
+        204:
+          description: Success
+        208:
+          description: Valid current password, new password matches it
+        401:
+          description: Invalid or expired access token
+        412:
+          description: Invalid current password
+        422:
+          description: Validation error
+  /user/auth/login:
+    get:
+      tags:
+        - user
+      summary: Authenticate user
+      security:
+        - BasicHttpAuthentication: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPair'
+        401:
+          description: Login failed (invalid credentials)
+  /user/auth/check:
+    get:
+      tags:
+        - user
+      summary: Check access token
+      security:
+        - BearerHttpAuthentication: []
+      responses:
+        204:
+          description: Success
+        401:
+          description: Check failed (invalid or expired access token)
+  /user/auth/refresh:
+    get:
+      tags:
+        - user
+      summary: Refresh token pair
+      security:
+        - BearerHttpAuthentication: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPair'
+        401:
+          description: Refresh failed (invalid or expired refresh token)
+components:
+  schemas:
+    Id:
+      type: integer
+      example: 42
+    IdList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Id'
+    Article:
+      type: object
+      properties:
+        article_id:
+          type: integer
+          example: 42
+        title:
+          type: string
+          example: "Cisco’s new AI agents and assistants aim to ease customer service headaches"
+        url:
+          type: string
+          format: url
+          example: "https://www.computerworld.com/article/3578806/ciscos-new-ai-agents-and-assistants-aim-to-ease-customer-service-headaches.html"
+        topic:
+          type: string
+          example: "Artificial Intelligence"
+    ArticleList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Article'
+    Topic:
+      type: object
+      properties:
+        topic_id:
+          type: integer
+          example: 42
+        name:
+          type: string
+          example: "Backend"
+    TopicList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Topic'
+    CustomTopic:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "DevOps"
+    Source:
+      type: object
+      properties:
+        source_id:
+          type: integer
+          example: 42
+        url:
+          type: string
+          format: url
+          example: "https://www.techradar.com/rss"
+        description:
+          type: string
+          example: "News, reviews, advice and more about latest technologies"
+    SourceList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Source'
+    CustomSource:
+      type: object
+      properties:
+        url:
+          type: string
+          format: url
+          example: "https://www.computerworld.com/news/rss"
+        description:
+          type: string
+          example: "News of the computer world"
+    UserInfo:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "KruASe"
+        email:
+          type: string
+          example: "kruase@email.com"
+      required:
+        - username
+        - email
+    UserRegister:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 3
+          example: "KruASe"
+        email:
+          type: string
+          format: email
+          example: "kruase@email.com"
+        password:
+          type: string
+          example: "password123"
+      required:
+        - username
+        - email
+        - password
+    UserPasswordChange:
+      type: object
+      properties:
+        current_password:
+          type: string
+          format: password
+          example: "password123"
+        new_password:
+          type: string
+          format: password
+          example: "password456"
+      required:
+        - current_password
+        - new_password
+    TokenPair:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+      required:
+        - access_token
+        - refresh_token
+    HttpConflict:
+      type: object
+      properties:
+        detail:
+          type: string
+          example: "Email already exists"
+      required:
+        - detail
+    HttpTooMany:
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 10
+      required:
+        - limit
+  securitySchemes:
+    BasicHttpAuthentication:
+      type: http
+      scheme: basic
+    BearerHttpAuthentication:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - BasicHttpAuthentication: []
+  - BearerHttpAuthentication: []
