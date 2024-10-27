@@ -299,13 +299,11 @@ paths:
           description: Refresh failed (invalid or expired refresh token)
 components:
   schemas:
-    Id:
-      type: integer
-      example: 42
     IdList:
       type: array
       items:
-        $ref: '#/components/schemas/Id'
+        type: integer
+      example: [42, 69, 228]
     Article:
       type: object
       properties:
