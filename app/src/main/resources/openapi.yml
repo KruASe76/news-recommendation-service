@@ -66,7 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TooMany'
+                $ref: '#/components/schemas/TooManyError'
         422:
           description: Validation error
   /topics/custom:
@@ -152,7 +152,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TooMany'
+                $ref: '#/components/schemas/TooManyError'
         422:
           description: Validation error
   /websites/custom:
@@ -221,7 +221,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HttpConflict'
+                $ref: '#/components/schemas/ConflictError'
         422:
           description: Validation error
   /user:
@@ -263,7 +263,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HttpConflict'
+                $ref: '#/components/schemas/ConflictError'
         422:
           description: Validation error
   /user/password:
@@ -431,7 +431,7 @@ components:
       required:
         - current_password
         - new_password
-    HttpConflict:
+    ConflictError:
       type: object
       properties:
         detail:
@@ -439,7 +439,7 @@ components:
           example: "Email already exists"
       required:
         - detail
-    TooMany:
+    TooManyError:
       type: object
       properties:
         limit:
