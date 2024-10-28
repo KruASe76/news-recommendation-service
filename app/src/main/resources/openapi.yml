@@ -18,7 +18,7 @@ paths:
         - articles
       summary: Get user-specific recent news articles
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       responses:
         200:
           description: Success
@@ -27,14 +27,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ArticleList'
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
   /topics:
     get:
       tags:
         - topics
       summary: Get all topics (also custom if authorised)
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
         - {}
       responses:
         200:
@@ -44,13 +44,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/TopicList'
         401:
-          description: Invalid or expired access token (if authorization header is provided)
+          description: Invalid authentication credentials (if authorization header is provided)
     put:
       tags:
         - topics
       summary: Set topics for a user
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       requestBody:
         content:
           application/json:
@@ -60,7 +60,7 @@ paths:
         204:
           description: Success
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         406:
           description: Too many topics
           content:
@@ -75,7 +75,7 @@ paths:
         - topics
       summary: Create custom topic
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       requestBody:
         content:
           application/json:
@@ -89,7 +89,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Topic'
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         409:
           description: Topic already exists
         422:
@@ -99,7 +99,7 @@ paths:
         - topics
       summary: Delete custom topic
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       requestBody:
         content:
           application/json:
@@ -109,7 +109,7 @@ paths:
         204:
           description: Success
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         404:
           description: Topic not found
         422:
@@ -120,7 +120,7 @@ paths:
         - websites
       summary: Get all websites (also custom if authorised)
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
         - {}
       responses:
         200:
@@ -130,13 +130,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/WebsiteList'
         401:
-          description: Invalid or expired access token (if authorization header is provided)
+          description: Invalid authentication credentials (if authorization header is provided)
     put:
       tags:
         - websites
       summary: Set websites for a user
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       requestBody:
         content:
           application/json:
@@ -146,7 +146,7 @@ paths:
         204:
           description: Success
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         406:
           description: Too many websites
           content:
@@ -161,7 +161,7 @@ paths:
         - websites
       summary: Upload custom website
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       requestBody:
         content:
           application/json:
@@ -175,7 +175,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Website'
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         406:
           description: Website does not support RSS protocol
         409:
@@ -187,7 +187,7 @@ paths:
         - websites
       summary: Delete custom website
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       requestBody:
         content:
           application/json:
@@ -197,7 +197,7 @@ paths:
         204:
           description: Success
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         404:
           description: Website not found
         422:
@@ -230,7 +230,7 @@ paths:
         - user
       summary: Get user information
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       responses:
         200:
           description: Success
@@ -239,7 +239,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserInfo'
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         404:
           description: Not found
     put:
@@ -247,7 +247,7 @@ paths:
         - user
       summary: Change user information
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       requestBody:
         content:
           application/json:
@@ -257,7 +257,7 @@ paths:
         204:
           description: Success
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         409:
           description: Conflict
           content:
@@ -272,7 +272,7 @@ paths:
         - user
       summary: Change user password
       security:
-        - BearerHttpAuthentication: []
+        - BasicHttpAuthentication: []
       requestBody:
         content:
           application/json:
@@ -284,55 +284,11 @@ paths:
         208:
           description: Valid current password, new password matches it
         401:
-          description: Invalid or expired access token
+          description: Invalid authentication credentials
         412:
           description: Invalid current password
         422:
           description: Validation error
-  /user/auth/login:
-    get:
-      tags:
-        - user
-      summary: Authenticate user
-      security:
-        - BasicHttpAuthentication: []
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokenPair'
-        401:
-          description: Login failed (invalid credentials)
-  /user/auth/check:
-    get:
-      tags:
-        - user
-      summary: Check access token
-      security:
-        - BearerHttpAuthentication: []
-      responses:
-        204:
-          description: Success
-        401:
-          description: Check failed (invalid or expired access token)
-  /user/auth/refresh:
-    get:
-      tags:
-        - user
-      summary: Refresh token pair
-      security:
-        - BearerHttpAuthentication: []
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokenPair'
-        401:
-          description: Refresh failed (invalid or expired refresh token)
 components:
   schemas:
     IdList:
@@ -475,16 +431,6 @@ components:
       required:
         - current_password
         - new_password
-    TokenPair:
-      type: object
-      properties:
-        access_token:
-          type: string
-        refresh_token:
-          type: string
-      required:
-        - access_token
-        - refresh_token
     HttpConflict:
       type: object
       properties:
@@ -505,10 +451,5 @@ components:
     BasicHttpAuthentication:
       type: http
       scheme: basic
-    BearerHttpAuthentication:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
 security:
   - BasicHttpAuthentication: []
-  - BearerHttpAuthentication: []
