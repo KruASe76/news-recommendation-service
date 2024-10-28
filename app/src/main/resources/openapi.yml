@@ -1,0 +1,455 @@
+openapi: 3.1.0
+info:
+  title: News Recommendation Service - OpenAPI
+  version: 0.0.1
+tags:
+  - name: articles
+    description: Operations with news articles
+  - name: topics
+    description: Operations with news topics
+  - name: websites
+    description: Operations with news websites
+  - name: user
+    description: Operations with user
+paths:
+  /articles:
+    get:
+      tags:
+        - articles
+      summary: Get user-specific recent news articles
+      security:
+        - BasicHttpAuthentication: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleList'
+        401:
+          description: Invalid authentication credentials
+  /topics:
+    get:
+      tags:
+        - topics
+      summary: Get all topics (also custom if authorised)
+      security:
+        - BasicHttpAuthentication: []
+        - {}
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicList'
+        401:
+          description: Invalid authentication credentials (if authorization header is provided)
+    put:
+      tags:
+        - topics
+      summary: Set topics for a user
+      security:
+        - BasicHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdList'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid authentication credentials
+        406:
+          description: Too many topics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyError'
+        422:
+          description: Validation error
+  /topics/custom:
+    post:
+      tags:
+        - topics
+      summary: Create custom topic
+      security:
+        - BasicHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomTopic'
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+        401:
+          description: Invalid authentication credentials
+        409:
+          description: Topic already exists
+        422:
+          description: Validation error
+    delete:
+      tags:
+        - topics
+      summary: Delete custom topic
+      security:
+        - BasicHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopicId'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid authentication credentials
+        404:
+          description: Topic not found
+        422:
+          description: Validation error
+  /websites:
+    get:
+      tags:
+        - websites
+      summary: Get all websites (also custom if authorised)
+      security:
+        - BasicHttpAuthentication: []
+        - {}
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteList'
+        401:
+          description: Invalid authentication credentials (if authorization header is provided)
+    put:
+      tags:
+        - websites
+      summary: Set websites for a user
+      security:
+        - BasicHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdList'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid authentication credentials
+        406:
+          description: Too many websites
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyError'
+        422:
+          description: Validation error
+  /websites/custom:
+    post:
+      tags:
+        - websites
+      summary: Upload custom website
+      security:
+        - BasicHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomWebsite'
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Website'
+        401:
+          description: Invalid authentication credentials
+        406:
+          description: Website does not support RSS protocol
+        409:
+          description: Website already exists
+        422:
+          description: Validation error
+    delete:
+      tags:
+        - websites
+      summary: Delete custom website
+      security:
+        - BasicHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebsiteId'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid authentication credentials
+        404:
+          description: Website not found
+        422:
+          description: Validation error
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: Register
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+      responses:
+        201:
+          description: Success
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictError'
+        422:
+          description: Validation error
+  /user:
+    get:
+      tags:
+        - user
+      summary: Get user information
+      security:
+        - BasicHttpAuthentication: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        401:
+          description: Invalid authentication credentials
+        404:
+          description: Not found
+    put:
+      tags:
+        - user
+      summary: Change user information
+      security:
+        - BasicHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInfo'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid authentication credentials
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictError'
+        422:
+          description: Validation error
+  /user/password:
+    put:
+      tags:
+        - user
+      summary: Change user password
+      security:
+        - BasicHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPasswordChange'
+      responses:
+        204:
+          description: Success
+        208:
+          description: Valid current password, new password matches it
+        401:
+          description: Invalid authentication credentials
+        412:
+          description: Invalid current password
+        422:
+          description: Validation error
+components:
+  schemas:
+    IdList:
+      type: array
+      items:
+        type: integer
+      example: [42, 69, 228]
+    Article:
+      type: object
+      properties:
+        article_id:
+          type: integer
+          minimum: 1
+          example: 42
+        title:
+          type: string
+          example: "Cisco’s new AI agents and assistants aim to ease customer service headaches"
+        url:
+          type: string
+          format: url
+          example: "https://www.computerworld.com/article/3578806/ciscos-new-ai-agents-and-assistants-aim-to-ease-customer-service-headaches.html"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-10-04T21:42:23Z"
+        topic:
+          type: string
+          example: "Artificial Intelligence"
+    ArticleList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Article'
+    Topic:
+      type: object
+      properties:
+        topic_id:
+          type: integer
+          minimum: 1
+          example: 42
+        name:
+          type: string
+          example: "Backend"
+    TopicList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Topic'
+    CustomTopic:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "DevOps"
+    TopicId:
+      type: object
+      properties:
+        topic_id:
+          type: integer
+          minimum: 1
+          example: 42
+      required:
+        - topic_id
+    Website:
+      type: object
+      properties:
+        website_id:
+          type: integer
+          minimum: 1
+          example: 42
+        url:
+          type: string
+          format: url
+          example: "https://www.techradar.com/rss"
+        description:
+          type: string
+          example: "News, reviews, advice and more about latest technologies"
+    WebsiteList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Website'
+    CustomWebsite:
+      type: object
+      properties:
+        url:
+          type: string
+          format: url
+          example: "https://www.computerworld.com/news/rss"
+        description:
+          type: string
+          example: "News of the computer world"
+    WebsiteId:
+      type: object
+      properties:
+        website_id:
+          type: integer
+          minimum: 1
+          example: 42
+      required:
+        - website_id
+    UserInfo:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "KruASe"
+        email:
+          type: string
+          example: "kruase@email.com"
+      required:
+        - username
+        - email
+    UserRegister:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 3
+          example: "KruASe"
+        email:
+          type: string
+          format: email
+          example: "kruase@email.com"
+        password:
+          type: string
+          example: "password123"
+      required:
+        - username
+        - email
+        - password
+    UserPasswordChange:
+      type: object
+      properties:
+        current_password:
+          type: string
+          format: password
+          example: "password123"
+        new_password:
+          type: string
+          format: password
+          example: "password456"
+      required:
+        - current_password
+        - new_password
+    ConflictError:
+      type: object
+      properties:
+        detail:
+          type: string
+          example: "Email already exists"
+      required:
+        - detail
+    TooManyError:
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 10
+      required:
+        - limit
+  securitySchemes:
+    BasicHttpAuthentication:
+      type: http
+      scheme: basic
+security:
+  - BasicHttpAuthentication: []
