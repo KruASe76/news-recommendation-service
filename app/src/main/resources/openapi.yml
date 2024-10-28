@@ -7,8 +7,8 @@ tags:
     description: Operations with news articles
   - name: topics
     description: Operations with news topics
-  - name: sources
-    description: Operations with news sources
+  - name: websites
+    description: Operations with news websites
   - name: user
     description: Operations with user
 paths:
@@ -26,12 +26,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArticleList'
-        208:
-          description: No new articles found
         401:
           description: Invalid or expired access token
-        422:
-          description: Validation error
   /topics:
     get:
       tags:
@@ -65,12 +61,12 @@ paths:
           description: Success
         401:
           description: Invalid or expired access token
-        413:
+        406:
           description: Too many topics
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HttpTooMany'
+                $ref: '#/components/schemas/TooMany'
         422:
           description: Validation error
   /topics/custom:
@@ -98,11 +94,31 @@ paths:
           description: Topic already exists
         422:
           description: Validation error
-  /sources:
+    delete:
+      tags:
+        - topics
+      summary: Delete custom topic
+      security:
+        - BearerHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopicId'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid or expired access token
+        404:
+          description: Topic not found
+        422:
+          description: Validation error
+  /websites:
     get:
       tags:
-        - sources
-      summary: Get all sources (also custom if authorised)
+        - websites
+      summary: Get all websites (also custom if authorised)
       security:
         - BearerHttpAuthentication: []
         - {}
@@ -112,13 +128,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SourceList'
+                $ref: '#/components/schemas/WebsiteList'
         401:
           description: Invalid or expired access token (if authorization header is provided)
     put:
       tags:
-        - sources
-      summary: Set sources for a user
+        - websites
+      summary: Set websites for a user
       security:
         - BearerHttpAuthentication: []
       requestBody:
@@ -131,39 +147,59 @@ paths:
           description: Success
         401:
           description: Invalid or expired access token
-        413:
-          description: Too many sources
+        406:
+          description: Too many websites
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HttpTooMany'
+                $ref: '#/components/schemas/TooMany'
         422:
           description: Validation error
-  /sources/custom:
+  /websites/custom:
     post:
       tags:
-        - sources
-      summary: Create custom source
+        - websites
+      summary: Upload custom website
       security:
         - BearerHttpAuthentication: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomSource'
+              $ref: '#/components/schemas/CustomWebsite'
       responses:
         201:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Source'
+                $ref: '#/components/schemas/Website'
         401:
           description: Invalid or expired access token
         406:
-          description: Source does not support RSS protocol
+          description: Website does not support RSS protocol
         409:
-          description: Source already exists
+          description: Website already exists
+        422:
+          description: Validation error
+    delete:
+      tags:
+        - websites
+      summary: Delete custom website
+      security:
+        - BearerHttpAuthentication: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebsiteId'
+      responses:
+        204:
+          description: Success
+        401:
+          description: Invalid or expired access token
+        404:
+          description: Website not found
         422:
           description: Validation error
   /user/register:
@@ -309,6 +345,7 @@ components:
       properties:
         article_id:
           type: integer
+          minimum: 1
           example: 42
         title:
           type: string
@@ -317,6 +354,10 @@ components:
           type: string
           format: url
           example: "https://www.computerworld.com/article/3578806/ciscos-new-ai-agents-and-assistants-aim-to-ease-customer-service-headaches.html"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-10-04T21:42:23Z"
         topic:
           type: string
           example: "Artificial Intelligence"
@@ -329,6 +370,7 @@ components:
       properties:
         topic_id:
           type: integer
+          minimum: 1
           example: 42
         name:
           type: string
@@ -343,11 +385,21 @@ components:
         name:
           type: string
           example: "DevOps"
-    Source:
+    TopicId:
       type: object
       properties:
-        source_id:
+        topic_id:
           type: integer
+          minimum: 1
+          example: 42
+      required:
+        - topic_id
+    Website:
+      type: object
+      properties:
+        website_id:
+          type: integer
+          minimum: 1
           example: 42
         url:
           type: string
@@ -356,11 +408,11 @@ components:
         description:
           type: string
           example: "News, reviews, advice and more about latest technologies"
-    SourceList:
+    WebsiteList:
       type: array
       items:
-        $ref: '#/components/schemas/Source'
-    CustomSource:
+        $ref: '#/components/schemas/Website'
+    CustomWebsite:
       type: object
       properties:
         url:
@@ -370,6 +422,15 @@ components:
         description:
           type: string
           example: "News of the computer world"
+    WebsiteId:
+      type: object
+      properties:
+        website_id:
+          type: integer
+          minimum: 1
+          example: 42
+      required:
+        - website_id
     UserInfo:
       type: object
       properties:
@@ -432,7 +493,7 @@ components:
           example: "Email already exists"
       required:
         - detail
-    HttpTooMany:
+    TooMany:
       type: object
       properties:
         limit:
