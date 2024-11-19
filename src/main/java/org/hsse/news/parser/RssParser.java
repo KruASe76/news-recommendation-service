@@ -1,13 +1,13 @@
-package org.example.rssparser;
+package org.hsse.news.parser;
 
 import com.rometools.rome.feed.synd.SyndCategory;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
-import org.example.article.Article;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -22,20 +22,25 @@ import java.util.Set;
 
 
 import com.rometools.rome.io.XmlReader;
-import org.example.article.ArticleTag;
 import org.jsoup.Jsoup;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class RssParser {
 
-    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-
-    public static List<Article> parse(URL url, ArticleTag articleTag) throws IOException, FeedException {
-        final List<Article> articles = new ArrayList<>();
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+    public static List<ParsedArticle> parse(URL url, String articleTag) throws IOException, FeedException {
         final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("User-agent", "Mozilla/5.0");
         final XmlReader reader = new XmlReader(connection.getInputStream(), true, UTF_8.name());
+        return parse(reader, articleTag);
+    }
+    public static List<ParsedArticle> parse (File file, String articleTag) throws IOException, FeedException {
+        final XmlReader reader = new XmlReader(file);
+        return parse(reader, articleTag);
+    }
+    private static List<ParsedArticle> parse(XmlReader reader, String  articleTag) throws FeedException {
+        final List<ParsedArticle> articles = new ArrayList<>();
         final SyndFeedInput syndFeedInput = new SyndFeedInput();
         syndFeedInput.setAllowDoctypes(true);
         final SyndFeed feed = syndFeedInput.build(reader);
@@ -46,7 +51,7 @@ public class RssParser {
             final String link = entry.getLink();
             final Set<String> topics = getTopics(entry.getCategories());
             final String author = entry.getAuthor();
-            articles.add(new Article(name, description, LocalDate.ofInstant(date, ZoneId.systemDefault()).format(DATE_FORMAT), link, topics, author, articleTag));
+            articles.add(new ParsedArticle(name, description, LocalDate.ofInstant(date, ZoneId.systemDefault()).format(DATE_FORMAT), link, topics, author, articleTag));
         }
         return articles;
     }
