@@ -3,40 +3,38 @@ plugins {
     pmd
     jacoco
     id("com.gradleup.shadow") version "8.3.2"
+    id("java")
 }
+
+group = "org.hsse.news.parser"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(libs.junit.jupiter)
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+
+    testImplementation("org.junit.jupiter:junit-jupiter")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    implementation(libs.guava)
+    implementation("org.jsoup:jsoup:1.18.1")
 
-    compileOnly("org.jetbrains:annotations:25.0.0")
+    implementation("com.rometools:rome:2.1.0")
+
+    implementation("org.slf4j:slf4j-api:2.0.0-alpha1")
+
+    implementation("org.apache.logging.log4j:log4j-api:2.3")
+
+    implementation("org.apache.logging.log4j:log4j-core:2.3")
 }
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
-}
-
-application {
-    mainClass = "org.hsse.news.App"
-}
-
-pmd {
-    ruleSets = emptyList()
-    ruleSetFiles = files("${projectDir}/src/main/resources/pmd/custom-ruleset.xml")
-}
-
-
-tasks.build {
-    dependsOn(tasks.jacocoTestCoverageVerification)
 }
 
 tasks.test {
@@ -52,7 +50,7 @@ tasks.jacocoTestCoverageVerification {
     violationRules {
         rule {
             element = "CLASS"
-            excludes = listOf("org.hsse.news.App")
+            excludes = listOf("org.hsse.news.parser")
 
             limit {
                 counter = "LINE"
