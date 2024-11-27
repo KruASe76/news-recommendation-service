@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RssParserTest {
-
   @Test
   void shouldParseFile() throws IOException, FeedException {
-    final File testFile = new File("src/test/resources/RssTestFile.xml");
+    final File testFile = new File(this.getClass().getResource("/RssTestFile.xml").getFile());
     final String testString =
         "Website: StackOverflow\n"
             + "name: Meet the guy responsible for building the Call of Duty game engine\n"
