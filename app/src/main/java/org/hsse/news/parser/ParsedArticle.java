@@ -10,12 +10,12 @@ public record ParsedArticle(
     String link,
     Set<String> topics,
     String author,
-    String articleTag) {
+    String websiteUrl) {
 
   @Override
   public String toString() {
     return "Website: "
-        + articleTag
+        + websiteUrl
         + "\n"
         + "name: "
         + name
@@ -37,7 +37,7 @@ public record ParsedArticle(
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, date, link, topics, author, articleTag);
+    return Objects.hash(name, description, date, link, topics, author, websiteUrl);
   }
 
   @Override
@@ -51,7 +51,7 @@ public record ParsedArticle(
               && link.equals(article.link)
               && topics.equals(article.topics)
               && author.equals(article.author)
-              && articleTag.equals(article.articleTag);
+              && websiteUrl.equals(article.websiteUrl);
     }
     return flag;
   }

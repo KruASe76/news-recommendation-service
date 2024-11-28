@@ -29,27 +29,27 @@ public final class RssParser {
 
   private RssParser() {}
 
-  public static List<ParsedArticle> parse(final URL url, final String articleTag)
+  public static List<ParsedArticle> parse(final URL url, final String websiteUrl)
       throws IOException, FeedException {
     final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     setConnection(connection);
     try (XmlReader reader = new XmlReader(connection.getInputStream(), true, UTF_8.name())) {
-      final List<ParsedArticle> articles = parse(reader, articleTag);
+      final List<ParsedArticle> articles = parse(reader, websiteUrl);
       reader.close();
       return articles;
     }
   }
 
-  public static List<ParsedArticle> parse(final File file, final String articleTag)
+  public static List<ParsedArticle> parse(final File file, final String websiteUrl)
       throws IOException, FeedException {
     try (XmlReader reader = new XmlReader(file)) {
-      final List<ParsedArticle> articles = parse(reader, articleTag);
+      final List<ParsedArticle> articles = parse(reader, websiteUrl);
       reader.close();
       return articles;
     }
   }
 
-  private static List<ParsedArticle> parse(final XmlReader reader, final String articleTag)
+  private static List<ParsedArticle> parse(final XmlReader reader, final String websiteUrl)
       throws FeedException {
     final List<ParsedArticle> articles = new ArrayList<>();
     final SyndFeedInput syndFeedInput = new SyndFeedInput();
@@ -70,7 +70,7 @@ public final class RssParser {
               link,
               topics,
               author,
-              articleTag));
+              websiteUrl));
     }
     return articles;
   }

@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ParsedArticleTest {
   private final ParsedArticle testArticle =
       new ParsedArticle(
-          "Meet the guy",
-          "Chris Fowler, Director of Engine for Call of Duty.",
-          "15 ноября 2024",
-          "https://stackoverflow.blog/2024/11/15/meet-the-guy-responsible-for-building-the-call-of-duty-game-engine/",
-          Set.of("gaming"),
-          "Eira May",
-          "StackOverflow");
+              "Meet the guy",
+              "Chris Fowler, Director of Engine for Call of Duty.",
+              "15 ноября 2024",
+              "https://stackoverflow.blog/2024/11/15/meet-the-guy-responsible-for-building-the-call-of-duty-game-engine/",
+              Set.of("gaming"),
+              "Eira May",
+              "https://stackoverflow.blog");
   private final int testHash =
       new ParsedArticle("1", "1", "1", "1", Set.of("1"), "1", "1").hashCode();
 
@@ -30,14 +30,14 @@ class ParsedArticleTest {
             "https://stackoverflow.blog/2024/11/15/meet-the-guy-responsible-for-building-the-call-of-duty-game-engine/",
             Set.of("gaming"),
             "Eira May",
-            "StackOverflow"),
+            "https://stackoverflow.blog"),
         "Articles must be equal");
   }
 
   @Test
   void shouldToStringArticle() {
     final String testString =
-        "Website: StackOverflow\n"
+        "Website: https://stackoverflow.blog\n"
             + "name: Meet the guy\n"
             + "author: Eira May\n"
             + "topics: [gaming]\n"
