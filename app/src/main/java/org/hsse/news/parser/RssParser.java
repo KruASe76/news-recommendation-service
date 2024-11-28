@@ -24,7 +24,7 @@ import org.jsoup.nodes.Document;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class RssParser {
-  private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+  private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMMM yyyy").localizedBy(Locale.ENGLISH);
   private static final ZoneId ZONE_ID = ZoneId.systemDefault();
 
   private RssParser() {}
@@ -66,7 +66,7 @@ public final class RssParser {
           new ParsedArticle(
               name,
               description,
-              formatDate(LocalDate.ofInstant(date, ZONE_ID)),
+              formatDate(LocalDate.ofInstant(date,ZONE_ID)),
               link,
               topics,
               author,
@@ -75,8 +75,8 @@ public final class RssParser {
     return articles;
   }
 
-  private static String formatDate(final LocalDate localDate) {
-    return localDate.format(DATE_FORMAT);
+  private static String formatDate(final LocalDate date) {
+    return date.format(DATE_FORMAT);
   }
 
   private static void setConnection(final HttpURLConnection connection) {
