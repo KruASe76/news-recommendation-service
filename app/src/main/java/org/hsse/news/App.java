@@ -2,12 +2,12 @@ package org.hsse.news;
 
 @SuppressWarnings("PMD.ShortClassName")
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+  public String getGreeting() {
+    return "Hello World!";
+  }
 
-    public static void main(final String[] args) {
-        final App app = new App();
-        System.out.println(app.getGreeting()); // NOPMD - suppressed SystemPrintln - temporal behaviour
-    }
+  public static void main(final String[] args) {
+    final App app = new App();
+    System.out.println(app.getGreeting()); // NOPMD - suppressed SystemPrintln - temporal behaviour
+  }
 }

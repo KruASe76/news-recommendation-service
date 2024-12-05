@@ -11,12 +11,15 @@ repositories {
 
 dependencies {
     testImplementation(libs.junit.jupiter)
-
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    implementation(libs.guava)
-
+    
     compileOnly("org.jetbrains:annotations:25.0.0")
+
+    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation("ch.qos.logback:logback-classic:1.5.12")
+
+    implementation("org.jsoup:jsoup:1.18.1")
+    implementation("com.rometools:rome:2.1.0")
 }
 
 java {
