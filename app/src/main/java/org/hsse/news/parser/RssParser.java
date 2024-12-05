@@ -24,7 +24,8 @@ import org.jsoup.nodes.Document;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class RssParser {
-  private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMMM yyyy").localizedBy(Locale.ENGLISH);
+  private static final DateTimeFormatter DATE_FORMAT =
+      DateTimeFormatter.ofPattern("dd MMMM yyyy").localizedBy(Locale.ENGLISH);
   private static final ZoneId ZONE_ID = ZoneId.systemDefault();
 
   private RssParser() {}
@@ -34,18 +35,14 @@ public final class RssParser {
     final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     setConnection(connection);
     try (XmlReader reader = new XmlReader(connection.getInputStream(), true, UTF_8.name())) {
-      final List<ParsedArticle> articles = parse(reader, websiteUrl);
-      reader.close();
-      return articles;
+      return parse(reader, websiteUrl);
     }
   }
 
   public static List<ParsedArticle> parse(final File file, final String websiteUrl)
       throws IOException, FeedException {
     try (XmlReader reader = new XmlReader(file)) {
-      final List<ParsedArticle> articles = parse(reader, websiteUrl);
-      reader.close();
-      return articles;
+      return parse(reader, websiteUrl);
     }
   }
 
@@ -66,7 +63,7 @@ public final class RssParser {
           new ParsedArticle(
               name,
               description,
-              formatDate(LocalDate.ofInstant(date,ZONE_ID)),
+              formatDate(LocalDate.ofInstant(date, ZONE_ID)),
               link,
               topics,
               author,
