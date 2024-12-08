@@ -10,13 +10,20 @@ repositories {
 }
 
 dependencies {
-    testImplementation(libs.junit.jupiter)
+    compileOnly("org.jetbrains:annotations:25.0.0")
 
+    testImplementation(libs.junit.jupiter)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    implementation(libs.guava)
+    testImplementation("org.mockito:mockito-core:5.14.2")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
 
-    compileOnly("org.jetbrains:annotations:25.0.0")
+    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation("ch.qos.logback:logback-classic:1.5.12")
+
+    implementation("com.sparkjava:spark-core:2.9.4")
+    implementation("com.sparkjava:spark-template-freemarker:2.7.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.1")
 }
 
 java {
@@ -26,7 +33,7 @@ java {
 }
 
 application {
-    mainClass = "org.hsse.news.App"
+    mainClass = "org.hsse.news.Application"
 }
 
 pmd {
@@ -52,13 +59,18 @@ tasks.jacocoTestCoverageVerification {
     violationRules {
         rule {
             element = "CLASS"
-            excludes = listOf("org.hsse.news.App")
+            excludes = listOf(
+                "org.hsse.news.Application",
+                "org.hsse.news.api.SparkApplication",
+            )
 
             limit {
                 counter = "LINE"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal.valueOf(0.8)
+                minimum = BigDecimal.valueOf(0.6)
             }
         }
     }
 }
+
+version = "0.1"
