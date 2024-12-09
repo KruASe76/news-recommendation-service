@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+     xmlns:georss="http://www.georss.org/georss"
+     xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+    <channel>
+        <title>Stack Overflow Blog</title>
+        <description>Essays, opinions, and advice on the act of computer programming from Stack Overflow.</description>
+        <atom:link href="https://stackoverflow.blog/feed/" rel="self" type="application/rss+xml" />
+        <link>https://stackoverflow.blog/</link>
+        <lastBuildDate>Mon, 18 Nov 2024 15:43:29 GMT</lastBuildDate>
+        <language>en-US</language>
+        <sy:updatePeriod>hourly</sy:updatePeriod>
+        <sy:updateFrequency>1</sy:updateFrequency>
+        <item>
+            <guid isPermaLink="false">3ad48da9-e31e-41ca-9375-ff20649cbcb5</guid>
+            <title>Meet the guy responsible for building the Call of Duty game engine</title>
+            <link>https://stackoverflow.blog/2024/11/15/meet-the-guy-responsible-for-building-the-call-of-duty-game-engine/</link>
+            <pubDate>Fri, 15 Nov 2024 08:40:00 GMT</pubDate>
+            <description><![CDATA[Chris Fowler, Director of Engine for Call of Duty, tells Ben and Ryan about his path from marine biology to game development, the ins and outs of game engines, and the technical feats involved in creating massively popular games like Call of Duty. Chris also explains why community feedback is so critical in game development and offers his advice for aspiring game developers. ]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[gaming]]></category>
+            <category><![CDATA[game-development]]></category>
+            <category><![CDATA[game-developer]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">ddf6157f-cb00-4884-8be7-6dec1bebb4f5</guid>
+            <title>A student of Geoff Hinton, Yann LeCun, and Jeff Dean explains where AI is headed</title>
+            <link>https://stackoverflow.blog/2024/11/12/a-student-of-geoff-hinton-yan-lacun-and-jeff-dean-explains-where-ai-is-headed/</link>
+            <pubDate>Tue, 12 Nov 2024 08:40:00 GMT</pubDate>
+            <description><![CDATA[Ben and Ryan are joined by Matt Zeiler, founder and CEO of Clarifai, an AI workflow orchestration platform. They talk about how the transformer architecture supplanted convolutional neural networks in AI applications, the infrastructure required for AI implementation, the implications of regulating AI, and the value of synthetic data.]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[data]]></category>
+            <category><![CDATA[llm]]></category>
+            <category><![CDATA[training]]></category>
+            <category><![CDATA[machine-learning]]></category>
+            <category><![CDATA[synthetic-data]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">09dcb5c5-65fe-4490-aa72-960b68d35d74</guid>
+            <title>Why do developers love clean code but hate writing documentation? </title>
+            <link>https://stackoverflow.blog/2024/11/11/developers-hate-documentation-ai-generated-toil-work/</link>
+            <pubDate>Mon, 11 Nov 2024 17:36:00 GMT</pubDate>
+            <description><![CDATA[It&#x27;s time to delegate to the robots.]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[documentation]]></category>
+            <category><![CDATA[code-quality]]></category>
+            <category><![CDATA[ai-coding]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[business]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">a876dbb4-3206-4b7c-bee8-04cc7a4f7405</guid>
+            <title>One of the world’s biggest web scrapers has some thoughts on data ownership</title>
+            <link>https://stackoverflow.blog/2024/11/08/one-of-the-world-s-biggest-web-scrapers-has-some-thoughts-on-data-ownership/</link>
+            <pubDate>Fri, 08 Nov 2024 08:40:00 GMT</pubDate>
+            <description><![CDATA[Or Lenchner, CEO of Bright Data, joins Ben and Ryan for a deep-dive conversation about the evolving landscape of web data. They talk through the challenges involved in data collection, the role of synthetic data in training large AI models, and how public data access is becoming more restrictive. Or also shares his thoughts on the importance of transparency in data practices, the likely future of data regulation, and the philosophical implications of more people using AI to innovate and solve problems. ]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[data]]></category>
+            <category><![CDATA[training]]></category>
+            <category><![CDATA[data-ethics]]></category>
+            <category><![CDATA[data-scraping]]></category>
+            <category><![CDATA[llm]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">de3c5bc1-05dd-4ad5-99b3-2d0004cf4335</guid>
+            <title>No code, only natural language: Q&amp;A on prompt engineering with Professor Greg Benson</title>
+            <link>https://stackoverflow.blog/2024/11/07/no-code-only-natural-language-q-and-a-on-prompt-engineering-with-professor-greg-benson/</link>
+            <pubDate>Thu, 07 Nov 2024 14:39:18 GMT</pubDate>
+            <description><![CDATA[Will prompt engineering replace the coder’s art or will software engineers who understand code still have a place in future software lifecycles?]]></description>
+            <dc:creator><![CDATA[Ryan Donovan]]></dc:creator>
+            <category><![CDATA[llm]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">cc695632-423c-46d0-858c-e2ec1a259d28</guid>
+            <title>How Google is helping developers get better answers from AI</title>
+            <link>https://stackoverflow.blog/2024/11/05/how-google-is-helping-developers-get-better-answers-from-ai/</link>
+            <pubDate>Tue, 05 Nov 2024 08:40:00 GMT</pubDate>
+            <description><![CDATA[Today’s guest is Logan Kilpatrick, a senior product manager at Google, who tells Ben about his journey from software engineering to machine learning to product management, all with an emphasis on reducing developer friction. They talk through the challenges of non-determinism in AI models and how Google is addressing these issues with a new feature: Grounding with Google Search. Plus, what working at the Apple Store taught Logan about product management. ]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[google]]></category>
+            <category><![CDATA[gemini]]></category>
+            <category><![CDATA[search]]></category>
+            <category><![CDATA[dev-tools]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">45e159a5-263d-4e9f-9538-305cbb95931a</guid>
+            <title>Research roadmap update: November 2024</title>
+            <link>https://stackoverflow.blog/2024/11/04/research-roadmap-update-november-2024/</link>
+            <pubDate>Mon, 04 Nov 2024 17:00:00 GMT</pubDate>
+            <description><![CDATA[An update to the research that the User Experience team is running over the next quarter.]]></description>
+            <dc:creator><![CDATA[Piper Lawson]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[research]]></category>
+            <category><![CDATA[design]]></category>
+            <category><![CDATA[community]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">214408ba-26fe-4d65-9cde-f6a0b94f5379</guid>
+            <title>How a creator of React is rethinking IDEs</title>
+            <link>https://stackoverflow.blog/2024/11/01/how-a-creator-of-react-is-rethinking-ides/</link>
+            <pubDate>Fri, 01 Nov 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Tom Occhino, now Chief Product Officer at Vercel, tells Ben about how he contributed to the development of React at Facebook and the contentious decision to make React open-source. They also talk about what community feedback has been like on Next.js 15, Vercel’s GenAI web development tool, and how Vercel is rethinking IDEs. ]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[react]]></category>
+            <category><![CDATA[next-js]]></category>
+            <category><![CDATA[vercel]]></category>
+            <category><![CDATA[open-source]]></category>
+            <category><![CDATA[ide]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">14a8e708-41c6-4757-a2ff-9802f42c99f4</guid>
+            <title>A brief summary of language model finetuning</title>
+            <link>https://stackoverflow.blog/2024/10/31/a-brief-summary-of-language-model-finetuning/</link>
+            <pubDate>Thu, 31 Oct 2024 14:00:00 GMT</pubDate>
+            <description><![CDATA[Here&#x27;s a (brief) summary of language model finetuning, the various approaches that exist, their purposes, and what we know about how they work.]]></description>
+            <dc:creator><![CDATA[Cameron R. Wolfe, PhD]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[llm]]></category>
+            <category><![CDATA[ai]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">c431ec0c-d90b-4f73-9057-fd046e22f17e</guid>
+            <title>Life in the Fastlane: SDK tools built with developers in mind </title>
+            <link>https://stackoverflow.blog/2024/10/30/paypal-fastlane-sdk-developer-integration-components-ecommerce/</link>
+            <pubDate>Wed, 30 Oct 2024 04:40:00 GMT</pubDate>
+            <description><![CDATA[On this sponsored episode, Ben and Ryan talk to Sunny Patel, Staff Software Engineer at PayPal, and Kyle Prinsloo, a developer and a PayPal partner, about all the ways that Fastlane by PayPal makes developers’ lives easier. They explore the needs that both merchants and consumers have for creating a seamless checkout experience, the importance of reducing friction in payment processes, and how documentation can directly assist the integration experience.]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[sponsored]]></category>
+            <category><![CDATA[podcast]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">d2ca61bb-9ac9-40a3-9565-18c9a6f6d722</guid>
+            <title>How can you get your kids into coding? We asked an 8-year-old app builder.</title>
+            <link>https://stackoverflow.blog/2024/10/29/how-can-you-get-your-kids-into-coding-we-asked-an-8-year-old/</link>
+            <pubDate>Tue, 29 Oct 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Ben welcomes Ricky Robinett, VP of Developer Relations and Community at Cloudflare, and his eight-year-old daughter Fay for a chat about how AI tools are helping new developers get started and how to encourage your kids to try coding.]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">ed11222c-3069-446e-a621-8c6254cedd52</guid>
+            <title>Tragedy of the (data) commons</title>
+            <link>https://stackoverflow.blog/2024/10/25/tragedy-of-the-data-commons/</link>
+            <pubDate>Fri, 25 Oct 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Ben chats with Shayne Longpre and Robert Mahari of the Data Provenance Initiative about what GenAI means for the data commons. They discuss the decline of public datasets, the complexities of fair use in AI training, the challenges researchers face in accessing data, potential applications for synthetic data, and the evolving legal landscape surrounding AI and copyright.]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[llm]]></category>
+            <category><![CDATA[data]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">5848a712-57c9-49eb-91df-5bf40c373403</guid>
+            <title>How to improve the developer experience in today’s ecommerce world</title>
+            <link>https://stackoverflow.blog/2024/10/23/improve-developer-experience-ecommerce-fastlane-paypal-sponsored/</link>
+            <pubDate>Wed, 23 Oct 2024 14:58:24 GMT</pubDate>
+            <description><![CDATA[We walk through the process of designing an SDK that makes it easy for developers to integrate new technology into their e-commerce stack and is flexible enough to serve the needs of small businesses and large enterprises.]]></description>
+            <dc:creator><![CDATA[Karen Posada]]></dc:creator>
+            <category><![CDATA[ecommerce]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[sponsored]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">50b52d4b-8860-42e4-9cd7-f608a2d456e2</guid>
+            <title>Enterprise 2024.7: Empower your subject matter experts to contribute</title>
+            <link>https://stackoverflow.blog/2024/10/23/empower-subject-matter-experts-to-contribute/</link>
+            <pubDate>Wed, 23 Oct 2024 13:00:00 GMT</pubDate>
+            <description><![CDATA[This release introduces Subject Matter Expert (SME) Auto-Assign to the Stack Overflow for Teams experience so expert knowledge is automatically captured, verified, and distributed to users.]]></description>
+            <dc:creator><![CDATA[Carrie Koos, Natalie Rotnov]]></dc:creator>
+            <category><![CDATA[release]]></category>
+            <category><![CDATA[stack-overflow-for-teams]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">b23cf106-8a9a-40c5-8fef-2d1f4c54a993</guid>
+            <title>CEO Update: Building trust in AI is key to a thriving knowledge ecosystem</title>
+            <link>https://stackoverflow.blog/2024/10/22/stack-overflow-ceo-update-first-half-1h-2024/</link>
+            <pubDate>Tue, 22 Oct 2024 14:00:00 GMT</pubDate>
+            <description><![CDATA[The internet and its business models are changing. Stack Overflow has been at the forefront, helping to shape the future of the web.]]></description>
+            <dc:creator><![CDATA[Prashanth Chandrasekar]]></dc:creator>
+            <category><![CDATA[se-all]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[ceo-quarterly-post]]></category>
+            <category><![CDATA[knowledge-as-a-service]]></category>
+            <category><![CDATA[company]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">eb15cb97-c872-4b31-8208-098a09706d41</guid>
+            <title>The new pair programming: an AI agent that cleans your code as you write</title>
+            <link>https://stackoverflow.blog/2024/10/22/the-new-pair-programming-an-ai-agent-that-cleans-your-code-as-you-write/</link>
+            <pubDate>Tue, 22 Oct 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Ben welcomes Sonar CEO Tariq Shaukat for a conversation about AI coding tools’ potential to boost developer productivity—and how to balance those potential gains against code quality and security concerns. They talk about Sonar’s origins as an open-source code quality tool, the excellent reasons to embrace a “clean as you code” philosophy, and how to determine where AI coding tools can be helpful and where they can’t (yet).]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[ai-assistant]]></category>
+            <category><![CDATA[ai-coding]]></category>
+            <category><![CDATA[code-quality]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">18f77023-fed0-4421-a67d-206c1f26e685</guid>
+            <title>How API security is evolving for the GenAI era</title>
+            <link>https://stackoverflow.blog/2024/10/18/how-api-security-is-evolving-for-the-genai-era/</link>
+            <pubDate>Fri, 18 Oct 2024 16:00:00 GMT</pubDate>
+            <description><![CDATA[Ben Popper chats with Keith Babo, Head of Product at Solo.io, about how the API security landscape is changing in the era of GenAI. They talk through the role of governance in AI, the importance of data protection, and the role API gateways play in enhancing security and functionality. Keith shares his insights on retrieval-augmented generation (RAG) systems, protecting PII, and the necessity of human-in-the-loop AI development.]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[api]]></category>
+            <category><![CDATA[security]]></category>
+            <category><![CDATA[retrieval-augmented-generation]]></category>
+            <category><![CDATA[business]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">14b53bde-baaf-4721-ac1d-13209b6fed0e</guid>
+            <title>Brain Drain: David vs Goliath</title>
+            <link>https://stackoverflow.blog/2024/10/17/training-data-scarcity-synthetic-quality-model-genai-ai/</link>
+            <pubDate>Thu, 17 Oct 2024 14:51:37 GMT</pubDate>
+            <description><![CDATA[There are worries that GenAI systems may run out of fresh data as they scale. Synthetic data is an option, but using AI-generated data to train AI can degrade the model&#x27;s performance. There may be a better solution. Can data quality overcome a loss of data quantity? ]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[knowledge-as-a-service]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">75b0ff47-9000-4278-b7c1-200da0432af0</guid>
+            <title>The team behind Unity 6 explains the new features aimed at helping developers</title>
+            <link>https://stackoverflow.blog/2024/10/16/unity-six-6-developer-features-multiplayer-mobile-web/</link>
+            <pubDate>Wed, 16 Oct 2024 09:15:00 GMT</pubDate>
+            <description><![CDATA[On today’s sponsored episode, we chat with Ryan Ellis and Martin Best about the developer-centric features built into Unity 6, the latest release of the well-known game engine. The pair explains how Unity 6 was built to help developers enhance graphics, add multiplayer, and easily port games to an audience on the mobile web.]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[sponsored]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">8794559c-a42b-4101-8806-30278fc3470e</guid>
+            <title>What launching rockets taught this CTO about hardware observability</title>
+            <link>https://stackoverflow.blog/2024/10/14/what-launching-rockets-taught-this-cto-about-hardware-observability/</link>
+            <pubDate>Mon, 14 Oct 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Austin Spiegel, CTO and co-founder of Sift, tells Ben and Ryan about his journey from studying film to working at SpaceX to founding Sift. ]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[observability]]></category>
+            <category><![CDATA[hardware]]></category>
+            <category><![CDATA[spacex]]></category>
+            <category><![CDATA[space-travel]]></category>
+            <category><![CDATA[business]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">1ea717b0-c0b4-4bd9-aabf-96272002cb20</guid>
+            <title>Is this the real life? Training autonomous cars with simulations</title>
+            <link>https://stackoverflow.blog/2024/10/11/is-this-the-real-life-training-autonomous-cars-with-simulations/</link>
+            <pubDate>Fri, 11 Oct 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Ben Popper interviews Vladislav Voroninski, CEO of Helm.ai, about unsupervised learning and the future of AI in autonomous driving. They discuss GenAI’s role in bridging the gap between simulation and reality, the challenges of scaling autonomous driving systems, the commercial potential of partial autonomy, and why software is emerging as a key differentiator in vehicle sales. Vlad spotlights the value of multimodal foundation models and how compute shortages affect AI startups.]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[self-driving-cars]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">eccfec1c-a4ac-4fbb-a5c3-cb97e2bc1c76</guid>
+            <title>Rust is evolving from system-level language to UI and frontend development</title>
+            <link>https://stackoverflow.blog/2024/10/08/think-you-don-t-need-observability-think-again/</link>
+            <pubDate>Tue, 08 Oct 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Ben and Ryan chat with Daniela Miao, cofounder and CTO of Momento, a real-time data platform, about real-time observability, the challenges of multi-tenancy in databases and caching, the use of WebAssembly in UI development, and the benefits of Rust.]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[rust]]></category>
+            <category><![CDATA[observability]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">912c9fa6-ec75-478f-99a3-7748a03396d4</guid>
+            <title>Meet the AI-native developers who build software through prompt engineering</title>
+            <link>https://stackoverflow.blog/2024/10/04/develop-software-with-ai-prompt-engineering-code-generation/</link>
+            <pubDate>Fri, 04 Oct 2024 04:15:00 GMT</pubDate>
+            <description><![CDATA[Crystal Xu, chief of staff at FSH Tech, explains how she works with GenAI systems like ChatGPT, Cursor, and Replit to build software through prompt engineering.]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">3aaeca87-e76b-4ab6-b28f-b846e7d47b98</guid>
+            <title>Community Products Roadmap Update, October 2024</title>
+            <link>https://stackoverflow.blog/2024/10/03/community-product-update-knowledge-as-a-service/</link>
+            <pubDate>Thu, 03 Oct 2024 15:00:32 GMT</pubDate>
+            <description><![CDATA[We explore how our platform is evolving to support a new framework and business model, knowledge-as-a-service, and how we will incorporate this with our ongoing investment in our community.]]></description>
+            <dc:creator><![CDATA[Des Darilek]]></dc:creator>
+            <category><![CDATA[community]]></category>
+            <category><![CDATA[community-update]]></category>
+            <category><![CDATA[knowledge-as-a-service]]></category>
+            <category><![CDATA[staging-ground]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">f773a86b-b84b-4d45-8ac9-b2f0b1a62d69</guid>
+            <title>A developer works to balance the data center boom with his climate change battle</title>
+            <link>https://stackoverflow.blog/2024/10/01/david-mytton-arcjet-console-dev-newsletter-podcast/</link>
+            <pubDate>Tue, 01 Oct 2024 04:15:00 GMT</pubDate>
+            <description><![CDATA[On today’s episode we chat with David Mytton, CEO of Arcjet and co-founder of Console.dev. We discuss his early work in cloud monitoring, his passion for the environment, and his love for sharing great developer tools.]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">15944235-a2a7-4cd3-b392-2843628b22c2</guid>
+            <title>Ongoing community data protection</title>
+            <link>https://stackoverflow.blog/2024/09/30/ongoing-community-data-protection/</link>
+            <pubDate>Mon, 30 Sep 2024 15:43:00 GMT</pubDate>
+            <description><![CDATA[Socially responsible use of community data needs to be mutually beneficial: the more potential partners are willing to contribute to community development, the more access to community content they receive.]]></description>
+            <dc:creator><![CDATA[Ellen Brandenberger, Ryan Polk]]></dc:creator>
+            <category><![CDATA[socially-responsible-ai]]></category>
+            <category><![CDATA[data-ethics]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[se-all]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">19d478d4-bdf5-4415-8ad9-2a8f07882af2</guid>
+            <title>Attribution as the foundation of developer trust</title>
+            <link>https://stackoverflow.blog/2024/09/30/attribution-as-the-foundation-of-developer-trust/</link>
+            <pubDate>Mon, 30 Sep 2024 15:42:00 GMT</pubDate>
+            <description><![CDATA[The entire AI ecosystem is at risk without trust.]]></description>
+            <dc:creator><![CDATA[Ellen Brandenberger, Ryan Polk]]></dc:creator>
+            <category><![CDATA[se-all]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[socially-responsible-ai]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[knowledge-as-a-service]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">72626a3b-c34d-403c-b4ae-696dc7ce4f5b</guid>
+            <title>Knowledge-as-a-service: The future of community business models</title>
+            <link>https://stackoverflow.blog/2024/09/30/knowledge-as-a-service-the-future-of-community-business-models/</link>
+            <pubDate>Mon, 30 Sep 2024 15:41:00 GMT</pubDate>
+            <description><![CDATA[The internet is changing once again: it is becoming more fragmented as the separation between sources of knowledge and how users interact with that knowledge grows.]]></description>
+            <dc:creator><![CDATA[Ellen Brandenberger, Ryan Polk]]></dc:creator>
+            <category><![CDATA[socially-responsible-ai]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[community]]></category>
+            <category><![CDATA[knowledge-as-a-service]]></category>
+            <category><![CDATA[se-all]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[business]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">291628de-77f0-478c-b767-f7a6c75e17c2</guid>
+            <title>The changing state of the Internet and related business models</title>
+            <link>https://stackoverflow.blog/2024/09/30/the-changing-state-of-the-internet-and-related-business-models/</link>
+            <pubDate>Mon, 30 Sep 2024 15:40:00 GMT</pubDate>
+            <description><![CDATA[If you’re weary of reading about the latest chatbot innovations and the nine ways AI will change your daily life next year, this series of posts may be for you. ]]></description>
+            <dc:creator><![CDATA[Ellen Brandenberger, Ryan Polk]]></dc:creator>
+            <category><![CDATA[socially-responsible-ai]]></category>
+            <category><![CDATA[community]]></category>
+            <category><![CDATA[se-all]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[ai]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">766c3321-e405-4290-9bd7-3616aa0586c8</guid>
+            <title>Deedy Das: from coding at Meta, to search at Google, to investing with Anthropic</title>
+            <link>https://stackoverflow.blog/2024/09/27/deedy-das-meta-google-menlo-ventures-ai-anthropic/</link>
+            <pubDate>Fri, 27 Sep 2024 04:15:00 GMT</pubDate>
+            <description><![CDATA[We chat with Deedy Das, a Principal at Menlo Ventures, who began his career as a software engineer at Facebook and Google. He then dipped a toe in the startup world, spending time at the company now know as Glean. More recently he started a career as a venture capitalist, investing in AI and Infra out of the Anthology Fund, a partnership between Menlo Ventures and Anthropic. ]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">484c1547-c0ce-40f6-a02b-8e59ec0d4d29</guid>
+            <title>Masked self-attention: How LLMs learn relationships between tokens</title>
+            <link>https://stackoverflow.blog/2024/09/26/masked-self-attention-how-llms-learn-relationships-between-tokens/</link>
+            <pubDate>Thu, 26 Sep 2024 16:00:00 GMT</pubDate>
+            <description><![CDATA[Masked self-attention is the key building block that allows LLMs to learn rich relationships and patterns between the words of a sentence. Let’s build it together from scratch.]]></description>
+            <dc:creator><![CDATA[Cameron R. Wolfe, PhD]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[llm]]></category>
+            <category><![CDATA[ai]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">18b787ab-127f-49da-a508-b8f29a9b0421</guid>
+            <title>Where developers feel AI coding tools are working—and where they’re missing the mark</title>
+            <link>https://stackoverflow.blog/2024/09/23/where-developers-feel-ai-coding-tools-are-working-and-where-they-re-missing-the-mark/</link>
+            <pubDate>Mon, 23 Sep 2024 16:00:00 GMT</pubDate>
+            <description><![CDATA[How are developers actually using GenAI-powered coding tools now that some of the initial hype has faded?]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[developer-survey]]></category>
+            <category><![CDATA[ai-coding]]></category>
+            <category><![CDATA[ai]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">8dca5b8f-b054-4534-b626-8b4c87153c24</guid>
+            <title>He sold his first company for billions. Now he’s building a better developer experience.</title>
+            <link>https://stackoverflow.blog/2024/09/23/he-sold-his-first-company-for-billions-now-he-s-building-a-better-developer-experience/</link>
+            <pubDate>Mon, 23 Sep 2024 16:00:00 GMT</pubDate>
+            <description><![CDATA[Founder and entrepreneur Jyoti Bansal tells Ben, Cassidy, and Eira about the developer challenges he aims to solve with his new venture, Harness, an AI-driven software development platform meant to take the pain out of DevOps. Jyoti shares his journey as a founder, his perspective on the venture capital landscape, and his reasons behind his decision to raise debt capital for Harness. ]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[software-development]]></category>
+            <category><![CDATA[funding]]></category>
+            <category><![CDATA[startups]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[business]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">2181e466-04fa-41c7-aaf2-e771c98e63f4</guid>
+            <title>Detecting errors in AI-generated code</title>
+            <link>https://stackoverflow.blog/2024/09/20/detecting-errors-in-ai-generated-code/</link>
+            <pubDate>Fri, 20 Sep 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Ben chats with Gias Uddin, an assistant professor at York University in Toronto, where he teaches software engineering, data science, and machine learning. His research focuses on designing intelligent tools for testing, debugging, and summarizing software and AI systems. He recently published a paper about detecting errors in code generated by LLMs. Gias and Ben discuss the concept of hallucinations in AI-generated code, the need for tools to detect and correct those hallucinations, and the potential for AI-powered tools to generate QA tests.]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[llm]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">8bc50b39-dcd3-4aa1-ac8c-8b5da015746d</guid>
+            <title>Elevating your search experience: Stack Overflow for Teams ML-powered reranking experiment</title>
+            <link>https://stackoverflow.blog/2024/09/19/elevating-your-search-experience-stack-overflow-for-teams-ml-powered-reranking-experiment/</link>
+            <pubDate>Thu, 19 Sep 2024 13:55:04 GMT</pubDate>
+            <description><![CDATA[Today, we&#x27;re excited to share details about our latest experiment that aims to make your search results in Stack Overflow for Teams Enterprise even more relevant and useful.]]></description>
+            <dc:creator><![CDATA[Adrian Brunetto]]></dc:creator>
+            <category><![CDATA[release]]></category>
+            <category><![CDATA[so-for-teams]]></category>
+            <category><![CDATA[search]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">7afa425c-06e4-4e4b-9a56-1cfe31508e03</guid>
+            <title>Looking under the hood at the tech stack that powers multimodal AI</title>
+            <link>https://stackoverflow.blog/2024/09/17/looking-under-the-hood-of-multimodal-ai/</link>
+            <pubDate>Tue, 17 Sep 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Ryan chats with Russ d’Sa, cofounder and CEO of LiveKit, about multimodal AI and the technology that makes it possible. They talk through the tech stack required, including the use of WebRTC and UDP protocols for real-time audio and video streaming. They also explore the big challenges involved in ensuring privacy and security in streaming data, namely end-to-end encryption and obfuscation. ]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">66b41ede-98b4-4d77-9c69-55e0ef165551</guid>
+            <title>The world’s largest open-source business has plans for enhancing LLMs</title>
+            <link>https://stackoverflow.blog/2024/09/13/the-world-s-largest-open-source-business-has-plans-for-enhancing-llms/</link>
+            <pubDate>Fri, 13 Sep 2024 07:40:00 GMT</pubDate>
+            <description><![CDATA[Ben and Ryan talk to Scott McCarty, Global Senior Principal Product Manager for Red Hat Enterprise Linux, about the intersection between LLMs (large language models) and open source. They discuss the challenges and benefits of open-source LLMs, the importance of attribution and transparency, and the revolutionary potential for LLM-driven applications. They also explore the role of LLMs in code generation, testing, and documentation.]]></description>
+            <dc:creator><![CDATA[Eira May]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[podcast]]></category>
+            <category><![CDATA[llm]]></category>
+            <category><![CDATA[ai]]></category>
+            <category><![CDATA[open-source]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">875ab2c2-53e4-4d8e-a2ac-961a6fd4e13c</guid>
+            <title>Enterprise 2024.6: Identify and engage your subject matter experts</title>
+            <link>https://stackoverflow.blog/2024/09/11/identify-and-engage-subject-matter-experts/</link>
+            <pubDate>Wed, 11 Sep 2024 13:00:00 GMT</pubDate>
+            <description><![CDATA[This release includes updates that improve subject matter expert (SME) visibility and engagement in Stack Overflow for Teams. It&#x27;s also now easier to capture and discover SME knowledge in Microsoft Teams and Slack with the Auto-Answer App.]]></description>
+            <dc:creator><![CDATA[Carrie Koos, Natalie Rotnov]]></dc:creator>
+            <category><![CDATA[release]]></category>
+            <category><![CDATA[stack-overflow-for-teams]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">14e148c7-e5a9-46c4-9648-2f0c8e08474c</guid>
+            <title>One of the best ways to get value for AI coding tools: generating tests</title>
+            <link>https://stackoverflow.blog/2024/09/10/gen-ai-llm-create-test-developers-coding-software-code-quality/</link>
+            <pubDate>Tue, 10 Sep 2024 12:46:52 GMT</pubDate>
+            <description><![CDATA[More code isn&#x27;t always a good thing, but fewer bugs is.]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[ai]]></category>
+        </item>
+        <item>
+            <guid isPermaLink="false">c96c909b-6386-4cf9-a0b1-a807664e426a</guid>
+            <title>The evolution of fullstack engineers</title>
+            <link>https://stackoverflow.blog/2024/09/10/evolution-full-stack-engineers-mrina-sugosh/</link>
+            <pubDate>Tue, 10 Sep 2024 04:15:00 GMT</pubDate>
+            <description><![CDATA[On today’s episode we chat with Mrinalini Sugosh, Dev Rel Manager CKEditor. She discusses how modern fullstack developers have to master both front and backend skills, stitch the two together, and master adjacent skills like data analysis and security compliance.]]></description>
+            <dc:creator><![CDATA[Ben Popper]]></dc:creator>
+            <category><![CDATA[se-stackoverflow]]></category>
+            <category><![CDATA[se-tech]]></category>
+            <category><![CDATA[podcast]]></category>
+        </item>
+    </channel>
+</rss>
