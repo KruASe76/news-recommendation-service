@@ -24,32 +24,29 @@ import org.jsoup.nodes.Document;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class RssParser {
-  private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+  private static final DateTimeFormatter DATE_FORMAT =
+      DateTimeFormatter.ofPattern("dd MMMM yyyy").localizedBy(Locale.ENGLISH);
   private static final ZoneId ZONE_ID = ZoneId.systemDefault();
 
   private RssParser() {}
 
-  public static List<ParsedArticle> parse(final URL url, final String articleTag)
+  public static List<ParsedArticle> parse(final URL url, final String websiteUrl)
       throws IOException, FeedException {
     final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     setConnection(connection);
     try (XmlReader reader = new XmlReader(connection.getInputStream(), true, UTF_8.name())) {
-      final List<ParsedArticle> articles = parse(reader, articleTag);
-      reader.close();
-      return articles;
+      return parse(reader, websiteUrl);
     }
   }
 
-  public static List<ParsedArticle> parse(final File file, final String articleTag)
+  public static List<ParsedArticle> parse(final File file, final String websiteUrl)
       throws IOException, FeedException {
     try (XmlReader reader = new XmlReader(file)) {
-      final List<ParsedArticle> articles = parse(reader, articleTag);
-      reader.close();
-      return articles;
+      return parse(reader, websiteUrl);
     }
   }
 
-  private static List<ParsedArticle> parse(final XmlReader reader, final String articleTag)
+  private static List<ParsedArticle> parse(final XmlReader reader, final String websiteUrl)
       throws FeedException {
     final List<ParsedArticle> articles = new ArrayList<>();
     final SyndFeedInput syndFeedInput = new SyndFeedInput();
@@ -70,13 +67,13 @@ public final class RssParser {
               link,
               topics,
               author,
-              articleTag));
+              websiteUrl));
     }
     return articles;
   }
 
-  private static String formatDate(final LocalDate localDate) {
-    return localDate.format(DATE_FORMAT);
+  private static String formatDate(final LocalDate date) {
+    return date.format(DATE_FORMAT);
   }
 
   private static void setConnection(final HttpURLConnection connection) {
