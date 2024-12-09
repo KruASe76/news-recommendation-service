@@ -55,7 +55,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IdList'
+              $ref: '#/components/schemas/IntegerIdList'
       responses:
         204:
           description: Success
@@ -94,17 +94,19 @@ paths:
           description: Topic already exists
         422:
           description: Validation error
+  /topics/custom/{topic_id}:
     delete:
       tags:
         - topics
       summary: Delete custom topic
       security:
         - BasicHttpAuthentication: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TopicId'
+      parameters:
+        - name: topic_id
+          in: path
+          schema:
+            $ref: '#/components/schemas/IntegerId'
+          required: true
       responses:
         204:
           description: Success
@@ -141,7 +143,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IdList'
+              $ref: '#/components/schemas/IntegerIdList'
       responses:
         204:
           description: Success
@@ -182,17 +184,19 @@ paths:
           description: Website already exists
         422:
           description: Validation error
+  /websites/custom/{website_id}:
     delete:
       tags:
         - websites
       summary: Delete custom website
       security:
         - BasicHttpAuthentication: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WebsiteId'
+      parameters:
+        - name: website_id
+          in: path
+          schema:
+            $ref: '#/components/schemas/IntegerId'
+          required: true
       responses:
         204:
           description: Success
@@ -291,18 +295,19 @@ paths:
           description: Validation error
 components:
   schemas:
-    IdList:
+    IntegerId:
+      type: integer
+      format: int64
+      minimum: 1
+      example: 42
+    IntegerIdList:
       type: array
       items:
-        type: integer
+        $ref: '#/components/schemas/IntegerId'
       example: [42, 69, 228]
     Article:
       type: object
       properties:
-        article_id:
-          type: integer
-          minimum: 1
-          example: 42
         title:
           type: string
           example: "Cisco’s new AI agents and assistants aim to ease customer service headaches"
@@ -325,9 +330,7 @@ components:
       type: object
       properties:
         topic_id:
-          type: integer
-          minimum: 1
-          example: 42
+          $ref: '#/components/schemas/IntegerId'
         name:
           type: string
           example: "Backend"
@@ -345,18 +348,14 @@ components:
       type: object
       properties:
         topic_id:
-          type: integer
-          minimum: 1
-          example: 42
+          $ref: '#/components/schemas/IntegerId'
       required:
         - topic_id
     Website:
       type: object
       properties:
         website_id:
-          type: integer
-          minimum: 1
-          example: 42
+          $ref: '#/components/schemas/IntegerId'
         url:
           type: string
           format: url
@@ -382,9 +381,7 @@ components:
       type: object
       properties:
         website_id:
-          type: integer
-          minimum: 1
-          example: 42
+          $ref: '#/components/schemas/IntegerId'
       required:
         - website_id
     UserInfo:
@@ -444,6 +441,7 @@ components:
       properties:
         limit:
           type: integer
+          minimum: 1
           example: 10
       required:
         - limit
