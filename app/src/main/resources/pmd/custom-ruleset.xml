@@ -6,11 +6,13 @@
     </description>
 
     <rule ref="category/java/bestpractices.xml">
+        <exclude name="GuardLogStatement"/>
     </rule>
     <rule ref="category/java/codestyle.xml">
         <exclude name="AtLeastOneConstructor"/>
     </rule>
     <rule ref="category/java/design.xml">
+        <exclude name="LawOfDemeter"/>
     </rule>
     <rule ref="category/java/errorprone.xml">
     </rule>
