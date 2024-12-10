@@ -1,8 +1,8 @@
-# news-recommendation-service
+### ML. Нейронка для саммеризации.
 
-The project was created as part of education at MIPT, HSSE under the lead of MTS.
+Написал приложение неройнки, проверял на тестовых данных. Работает, если нет совсем сторонних токенов.
 
+Более подробная информация в ноутбуке:
+https://drive.google.com/drive/folders/149y0iTZG34duzeZzHCFk1Tcik8uNt76u?usp=sharing
 
-## Database structure
-
-![](app/src/main/resources/database/mindmap.png)
+Сама модель и токенайзер находятся на ГД, их размер слишком большой, разместите локально в resources 
