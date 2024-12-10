@@ -12,9 +12,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.rometools.rome.io.XmlReader;
@@ -24,14 +21,12 @@ import org.jsoup.nodes.Document;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class RssParser {
-  private static final DateTimeFormatter DATE_FORMAT =
-      DateTimeFormatter.ofPattern("dd MMMM yyyy").localizedBy(Locale.ENGLISH);
-  private static final ZoneId ZONE_ID = ZoneId.systemDefault();
 
-  private RssParser() {}
+  private RssParser() {
+  }
 
   public static List<ParsedArticle> parse(final URL url, final String websiteUrl)
-      throws IOException, FeedException {
+          throws IOException, FeedException {
     final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     setConnection(connection);
     try (XmlReader reader = new XmlReader(connection.getInputStream(), true, UTF_8.name())) {
@@ -40,14 +35,14 @@ public final class RssParser {
   }
 
   public static List<ParsedArticle> parse(final File file, final String websiteUrl)
-      throws IOException, FeedException {
+          throws IOException, FeedException {
     try (XmlReader reader = new XmlReader(file)) {
       return parse(reader, websiteUrl);
     }
   }
 
   private static List<ParsedArticle> parse(final XmlReader reader, final String websiteUrl)
-      throws FeedException {
+          throws FeedException {
     final List<ParsedArticle> articles = new ArrayList<>();
     final SyndFeedInput syndFeedInput = new SyndFeedInput();
     syndFeedInput.setAllowDoctypes(true);
@@ -60,21 +55,18 @@ public final class RssParser {
       final Set<String> topics = getTopics(entry.getCategories());
       final String author = entry.getAuthor();
       articles.add(
-          new ParsedArticle(
-              name,
-              description,
-              formatDate(LocalDate.ofInstant(date, ZONE_ID)),
-              link,
-              topics,
-              author,
-              websiteUrl));
+              new ParsedArticle(
+                      name,
+                      description,
+                      date,
+                      link,
+                      topics,
+                      author,
+                      websiteUrl));
     }
     return articles;
   }
 
-  private static String formatDate(final LocalDate date) {
-    return date.format(DATE_FORMAT);
-  }
 
   private static void setConnection(final HttpURLConnection connection) {
     connection.setRequestProperty("User-agent", "Mozilla/5.0");
