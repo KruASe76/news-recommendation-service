@@ -27,6 +27,9 @@ dependencies {
 
     implementation("org.jsoup:jsoup:1.18.1")
     implementation("com.rometools:rome:2.1.0")
+
+    implementation("com.microsoft.onnxruntime:onnxruntime:1.20.0")
+    implementation("ai.djl.huggingface:tokenizers:0.31.0")
 }
 
 java {
