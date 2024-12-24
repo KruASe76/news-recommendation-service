@@ -8,8 +8,8 @@ import java.util.Map;
 import org.hsse.news.model.OnnxModelRunner;
 
 public class OnnxApplication {
-  private static final String MODEL_PATH = "src\\main\\resources\\onnx_model\\trfs-model.onnx";
-  private static final String TOKENIZER_PATH = "src\\main\\resources\\onnx_model\\tokenizer\\tokenizer.json";
+  private static final String MODEL_PATH = "/onnx_model/trfs-model.onnx";
+  private static final String TOKENIZER_PATH = "/onnx_model/tokenizer/tokenizer.json";
 
   private Map<String, Float> start(String text, List<String> labels) throws OrtException, IOException {
     OnnxModelRunner modelRunner = new OnnxModelRunner(MODEL_PATH, TOKENIZER_PATH);
