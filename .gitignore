@@ -1,5 +1,6 @@
 ### Custom
 .env
+app/src/main/resources/onnx_model
 
 
 ### Java

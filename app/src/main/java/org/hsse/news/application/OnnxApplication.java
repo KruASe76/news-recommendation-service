@@ -1,18 +1,24 @@
 package org.hsse.news.application;
 
 import ai.onnxruntime.OrtException;
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import org.hsse.news.model.OnnxModelRunner;
+import org.hsse.news.util.ResourceUtil;
 
 public class OnnxApplication {
-  private static final String MODEL_PATH = "/onnx_model/trfs-model.onnx";
-  private static final String TOKENIZER_PATH = "/onnx_model/tokenizer/tokenizer.json";
+  private static final String MODEL_PATH = ResourceUtil.getResource("/onnx_model/trfs-model.onnx");
+  private static final String TOKENIZER_PATH = ResourceUtil.getResource("/onnx_model/tokenizer/tokenizer.json");
+
 
   private Map<String, Float> start(String text, List<String> labels) throws OrtException, IOException {
-    OnnxModelRunner modelRunner = new OnnxModelRunner(MODEL_PATH, TOKENIZER_PATH);
+    OnnxModelRunner modelRunner = new OnnxModelRunner(OnnxApplication.MODEL_PATH, OnnxApplication.TOKENIZER_PATH);
     return modelRunner.runModel(text, labels);
   }
   /***
@@ -21,13 +27,19 @@ public class OnnxApplication {
    * @throws IOException when have some troubles with filepath
    */
   public void start() throws OrtException, IOException {
-    final var inputText = "Как написать нейронную сеть, чтобы работала на Java и на Python";
+    String query = "Как написать нейронную сеть, чтобы работала на Java и на Python";
+    final var inputText = encodeString(query);
     final var candidateLabels = Arrays.asList("DevOps", "IT", "Backend", "Data Science", "Machine Learning", "Cybersecurity", "Database Admin");
 
     var result = start(inputText, candidateLabels);
 
-    System.out.println(inputText);
+    System.out.println(query);
     System.out.println(result);
+  }
+
+  public String encodeString(String input) {
+    final byte[] bytes = input.getBytes();
+    return new String(bytes, StandardCharsets.UTF_8);
   }
 
   public void getDataFromJson() {
@@ -35,6 +47,6 @@ public class OnnxApplication {
   }
 
   public void convertResponseToJson() {
-    // TODO: И возвращала в подобном же формате
+
   }
 }
