@@ -24,10 +24,6 @@ public final class Application {
     }
 
     public static void main(final String[] args) throws IOException, OrtException {
-        OnnxApplication app = new OnnxApplication();
-
-        var results = app.predictExample();
-
         final ArticleService articleService = new ArticleService();
         final TopicService topicService = new TopicService();
         final UserService userService = new UserService();
