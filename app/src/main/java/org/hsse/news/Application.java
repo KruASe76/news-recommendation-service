@@ -3,7 +3,6 @@ package org.hsse.news;
 import ai.onnxruntime.OrtException;
 import java.io.IOException;
 import org.hsse.news.api.SparkApplication;
-import org.hsse.news.application.OnnxApplication;
 import org.hsse.news.database.article.ArticleService;
 import org.hsse.news.database.topic.TopicService;
 import org.hsse.news.database.user.UserService;
