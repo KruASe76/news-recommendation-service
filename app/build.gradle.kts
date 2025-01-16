@@ -27,6 +27,9 @@ dependencies {
 
     implementation("org.jsoup:jsoup:1.18.1")
     implementation("com.rometools:rome:2.1.0")
+
+    implementation("com.microsoft.onnxruntime:onnxruntime:1.20.0")
+    implementation("ai.djl.huggingface:tokenizers:0.31.0")
 }
 
 java {
@@ -65,6 +68,9 @@ tasks.jacocoTestCoverageVerification {
             excludes = listOf(
                 "org.hsse.news.Application",
                 "org.hsse.news.api.SparkApplication",
+                "org.hsse.news.util.ResourceUtil",
+                "org.hsse.news.model.OnnxModelRunner",
+                "org.hsse.news.application.OnnxApplication"
             )
 
             limit {

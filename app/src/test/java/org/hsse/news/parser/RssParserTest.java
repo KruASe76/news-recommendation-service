@@ -1,6 +1,7 @@
 package org.hsse.news.parser;
 
 import com.rometools.rome.io.FeedException;
+import org.hsse.news.TestResourceUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -23,7 +24,7 @@ class RssParserTest {
 
   @Test
   void shouldParseFile() throws IOException, FeedException, ParseException {
-    final File testFile = new File(this.getClass().getResource("/RssTestFile.xml").getFile());
+    final File testFile = new File(TestResourceUtil.getResource("/RssTestFile.xml"));
     final ParsedArticle testArticle =
             new ParsedArticle(
                     "Meet the guy responsible for building the Call of Duty game engine",
