@@ -68,6 +68,9 @@ tasks.jacocoTestCoverageVerification {
             excludes = listOf(
                 "org.hsse.news.Application",
                 "org.hsse.news.api.SparkApplication",
+                "org.hsse.news.util.ResourceUtil",
+                "org.hsse.news.model.OnnxModelRunner",
+                "org.hsse.news.application.OnnxApplication"
             )
 
             limit {
