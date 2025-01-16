@@ -1,5 +1,6 @@
 package org.hsse.news.model;
 
+import ai.djl.huggingface.tokenizers.Encoding;
 import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
@@ -10,51 +11,63 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+
 
 public class OnnxModelRunner {
   private final OrtSession session;
   private final OrtEnvironment environment;
   private final HuggingFaceTokenizer tokenizer;
 
-  public OnnxModelRunner(String modelPath, String tokenizerPath) throws OrtException, IOException {
+  public OnnxModelRunner(final String modelPath, final String tokenizerPath) throws OrtException, IOException {
     environment = OrtEnvironment.getEnvironment();
-    SessionOptions options = new SessionOptions();
+    final SessionOptions options = new SessionOptions(); // NOPMD
 
     session = environment.createSession(modelPath, options);
     tokenizer = HuggingFaceTokenizer.newInstance(Paths.get(tokenizerPath));
   }
 
-  public Map<String, Float> runModel(String text, List<String> labels) throws OrtException {
+
+  public Map<String, Float> runModel(final String text, final List<String> labels) throws OrtException {
     final var logits = new ArrayList<Float>();
+    Map<String, OnnxTensor> inputs;
+    OnnxTensor tensor1; // NOPMD - Always close
+    OnnxTensor tensor2; // NOPMD - Always close
 
-    for (String label : labels) {
-      final var encode = tokenizer.encode(List.of(text, label));
-      final var inputTokens = encode.getIds();
-      final var attentionMask = encode.getAttentionMask();
+    Encoding encode;
+    long[] inputTokens;
+    long[] attentionMask;
+    float[][] resultLogits;
 
-      OnnxTensor t1 = OnnxTensor.createTensor(environment, new long[][]{inputTokens});
-      OnnxTensor t2 = OnnxTensor.createTensor(environment, new long[][]{attentionMask});
+    for (final String label : labels) {
+      encode = tokenizer.encode(List.of(text, label));
+      inputTokens = encode.getIds();
+      attentionMask = encode.getAttentionMask();
+      tensor1 = OnnxTensor.createTensor(environment, new long[][]{inputTokens}); // NOPMD
+      tensor2 = OnnxTensor.createTensor(environment, new long[][]{attentionMask}); // NOPMD
 
-      var inputs = Map.of("input_ids", t1, "attention_mask", t2);
+      inputs = Map.of("input_ids", tensor1, "attention_mask", tensor2);
       try (var result = session.run(inputs)) {
-        float[][] resultLogits = (float[][]) result.get(0).getValue();
+        resultLogits = (float[][]) result.get(0).getValue();
         logits.add(resultLogits[0][0]);
       }
+
+      tensor1.close();
+      tensor2.close();
     }
 
     return softmax(labels, logits);
   }
 
-  private static Map<String, Float> softmax(List<String> labels, List<Float> logits) {
-    float maxLogit = logits.stream().max(Float::compareTo).orElse(Float.NEGATIVE_INFINITY);
+  private static Map<String, Float> softmax(final List<String> labels, final List<Float> logits) {
+    final float maxLogit = logits.stream().max(Float::compareTo).orElse(Float.NEGATIVE_INFINITY);
     float sumExp = 0.0f;
-    float[] expLogits = new float[logits.size()];
-    Map<String, Float> results = new HashMap<>();
+    final float[] expLogits = new float[logits.size()];
+    final ConcurrentHashMap<String, Float> results = new ConcurrentHashMap<>();
 
     for (int i = 0; i < logits.size(); i++) {
       expLogits[i] = (float) Math.exp(logits.get(i) - maxLogit);
@@ -74,4 +87,5 @@ public class OnnxModelRunner {
             )
         );
   }
+
 }

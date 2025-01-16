@@ -1,9 +1,8 @@
 package org.hsse.news.application;
 
 import ai.onnxruntime.OrtException;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
 import org.hsse.news.model.OnnxModelRunner;
@@ -15,20 +14,20 @@ public class OnnxApplication {
   private final OnnxModelRunner modelRunner;
 
 
-  public OnnxApplication(OnnxModelRunner modelRunner) {
+  public OnnxApplication(final OnnxModelRunner modelRunner) {
     this.modelRunner = modelRunner;
   }
 
-  private Map<String, Float> getResult(String text, List<String> labels) throws OrtException {
+  private Map<String, Float> getResult(final String text, final List<String> labels) throws OrtException {
     return modelRunner.runModel(text, labels);
   }
 
-  public Map<String, Float> predict(String text, List<String> labels) throws OrtException {
-    String query = encodeString(text);
+  public Map<String, Float> predict(final String text, final List<String> labels) throws OrtException {
+    final String query = encodeString(text);
     return getResult(query, labels);
   }
 
-  private String encodeString(String input) {
+  private String encodeString(final String input) {
     final byte[] bytes = input.getBytes();
     return new String(bytes, StandardCharsets.UTF_8);
   }
