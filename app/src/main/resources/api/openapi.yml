@@ -2,6 +2,8 @@ openapi: 3.1.0
 info:
   title: News Recommendation Service - OpenAPI
   version: 0.0.1
+servers:
+  - url: https://localhost:4567/api/v1
 tags:
   - name: articles
     description: Operations with news articles
@@ -387,22 +389,18 @@ components:
     UserInfo:
       type: object
       properties:
-        username:
-          type: string
-          example: "KruASe"
         email:
           type: string
           example: "kruase@email.com"
+        username:
+          type: string
+          example: "KruASe"
       required:
-        - username
         - email
+        - username
     UserRegister:
       type: object
       properties:
-        username:
-          type: string
-          minLength: 3
-          example: "KruASe"
         email:
           type: string
           format: email
@@ -410,10 +408,14 @@ components:
         password:
           type: string
           example: "password123"
+        username:
+          type: string
+          minLength: 3
+          example: "KruASe"
       required:
-        - username
         - email
         - password
+        - username
     UserPasswordChange:
       type: object
       properties:
