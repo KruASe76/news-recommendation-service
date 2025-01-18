@@ -1,4 +1,3 @@
 package org.hsse.news.database.article;
 
-public final class ArticleService {
-}
+public final class ArticleService {}

@@ -1,12 +1,13 @@
 package org.hsse.news.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hsse.news.api.authorizers.Authorizer;
 import org.hsse.news.api.controllers.ArticleController;
 import org.hsse.news.api.controllers.Controller;
 import org.hsse.news.api.controllers.TopicController;
 import org.hsse.news.api.controllers.UserController;
 import org.hsse.news.api.controllers.WebsiteController;
-import org.hsse.news.api.util.Authorizer;
+import org.hsse.news.api.authorizers.BasicAuthorizer;
 import org.hsse.news.api.util.SimpleHttpClient;
 import org.hsse.news.database.article.ArticleService;
 import org.hsse.news.database.topic.TopicService;
@@ -41,7 +42,7 @@ class SparkApplicationTest {
         service = Service.ignite();
         objectMapper = new ObjectMapper();
 
-        final Authorizer authorizer = new Authorizer(service, userService);
+        final Authorizer authorizer = new BasicAuthorizer(service, userService);
 
         List.of(
                 new ArticleController(API_PREFIX, service, articleService, objectMapper, authorizer),

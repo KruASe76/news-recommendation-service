@@ -1,4 +1,3 @@
 package org.hsse.news.database.website;
 
-public final class WebsiteService {
-}
+public final class WebsiteService {}

@@ -1,11 +1,12 @@
 package org.hsse.news.api.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hsse.news.api.util.Authorizer;
+import org.hsse.news.api.authorizers.Authorizer;
 import org.hsse.news.database.topic.TopicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Service;
+import spark.route.HttpMethod;
 
 public final class TopicController implements Controller {
     private static final Logger LOG = LoggerFactory.getLogger(TopicController.class);
@@ -43,7 +44,7 @@ public final class TopicController implements Controller {
     private void get() {
         final String path = routePrefix;
 
-        authorizer.enableOptionalAuthorization(path);
+        authorizer.enableOptionalAuthorization(path, HttpMethod.get);
         service.get(
                 path,
                 ACCEPT_TYPE,
@@ -59,7 +60,7 @@ public final class TopicController implements Controller {
     private void put() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path);
+        authorizer.enableAuthorization(path, HttpMethod.put);
         service.put(
                 path,
                 ACCEPT_TYPE,
@@ -75,7 +76,7 @@ public final class TopicController implements Controller {
     private void createCustom() {
         final String path = routePrefix + "/custom";
 
-        authorizer.enableAuthorization(path);
+        authorizer.enableAuthorization(path, HttpMethod.post);
         service.post(
                 path,
                 ACCEPT_TYPE,
@@ -91,7 +92,7 @@ public final class TopicController implements Controller {
     private void deleteCustom() {
         final String path = routePrefix + "/custom/:id";
 
-        authorizer.enableAuthorization(path);
+        authorizer.enableAuthorization(path, HttpMethod.delete);
         service.delete(
                 path,
                 ACCEPT_TYPE,

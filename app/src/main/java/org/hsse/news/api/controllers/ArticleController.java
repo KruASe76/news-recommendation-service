@@ -1,11 +1,12 @@
 package org.hsse.news.api.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hsse.news.api.util.Authorizer;
+import org.hsse.news.api.authorizers.Authorizer;
 import org.hsse.news.database.article.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Service;
+import spark.route.HttpMethod;
 
 public final class ArticleController implements Controller {
     private static final Logger LOG = LoggerFactory.getLogger(ArticleController.class);
@@ -40,7 +41,7 @@ public final class ArticleController implements Controller {
     private void get() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path);
+        authorizer.enableAuthorization(path, HttpMethod.get);
         service.get(
                 path,
                 ACCEPT_TYPE,
