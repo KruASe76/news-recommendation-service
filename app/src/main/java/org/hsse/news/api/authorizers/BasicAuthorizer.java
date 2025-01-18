@@ -9,11 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Service;
-import spark.route.HttpMethod;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.Locale;
 import java.util.Optional;
 
 public class BasicAuthorizer implements Authorizer {
@@ -29,52 +27,32 @@ public class BasicAuthorizer implements Authorizer {
     }
 
     @Override
-    public void enableAuthorization(final String path, final HttpMethod method) {
-        service.before(
-                path,
-                (request, response) -> {
-                    if (HttpMethod.get(request.requestMethod().toLowerCase(Locale.ROOT)) != method) {
-                        return;
-                    }
+    public UserId authorizeStrict(final Request request) {
+        final AuthenticationCredentials credentials =
+                extractCredentials(request.headers("Authorization"));
 
-                    final AuthenticationCredentials credentials =
-                            extractCredentials(request.headers("Authorization"));
+        if (credentials == null) {
+            LOG.debug("No authorization header provided");
 
-                    if (credentials == null) {
-                        LOG.debug("No authorization header provided");
+            service.halt(401, "Missing authorization header");
+        }
 
-                        service.halt(401, "Missing authorization header");
-                    }
-
-                    tryAuthorize(request, credentials);
-                }
-        );
+        return tryAuthorize(credentials);
     }
 
     @Override
-    public void enableOptionalAuthorization(final String path, final HttpMethod method) {
-        service.before(
-                path,
-                (request, response) -> {
-                    if (HttpMethod.get(request.requestMethod().toLowerCase(Locale.ROOT)) != method) {
-                        return;
-                    }
+    public Optional<UserId> authorizeOptional(final Request request) {
+        final AuthenticationCredentials credentials =
+                extractCredentials(request.headers("Authorization"));
 
-                    final AuthenticationCredentials credentials =
-                            extractCredentials(request.headers("Authorization"));
+        if (credentials == null) {
+             return Optional.empty();  // fail silently and do not provide UserId header
+        }
 
-                    if (credentials == null) {
-                        return;  // fail silently and do not provide UserId header
-                    }
-
-                    tryAuthorize(request, credentials);
-                }
-        );
+        return Optional.of(tryAuthorize(credentials));
     }
 
-    private void tryAuthorize(
-            final Request request, final @NotNull AuthenticationCredentials credentials
-    ) {
+    private UserId tryAuthorize(final @NotNull AuthenticationCredentials credentials) {
         LOG.debug("Attempting to authorize user with email = {}", credentials.email());
 
         final Optional<UserId> userIdOptional = userService.authenticate(credentials);
@@ -85,9 +63,9 @@ public class BasicAuthorizer implements Authorizer {
             service.halt(401, "Invalid credentials");
         }
 
-        request.attribute(USER_ID_ATTRIBUTE, userIdOptional.get());
-
         LOG.debug("Successfully authorized user with id = {}", userIdOptional.get());
+
+        return userIdOptional.get();
     }
 
     private AuthenticationCredentials extractCredentials(final String authorizationHeader) {

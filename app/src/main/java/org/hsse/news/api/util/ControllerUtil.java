@@ -41,16 +41,5 @@ public final class ControllerUtil {
         return schema;
     }
 
-    public static @NotNull UserId extractUserId(final Request request, final Service service) {
-        final UserId userId = request.attribute(Authorizer.USER_ID_ATTRIBUTE);
-
-        if (userId == null) {
-            LOG.error("UserId attribute is not present");
-            service.halt(500, "Internal authorization error");
-        }
-
-        return userId;
-    }
-
     private ControllerUtil() {}
 }

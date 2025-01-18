@@ -2,11 +2,12 @@ package org.hsse.news.api.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hsse.news.api.authorizers.Authorizer;
+import org.hsse.news.api.util.ControllerUtil;
 import org.hsse.news.database.article.ArticleService;
+import org.hsse.news.database.user.models.UserId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Service;
-import spark.route.HttpMethod;
 
 public final class ArticleController implements Controller {
     private static final Logger LOG = LoggerFactory.getLogger(ArticleController.class);
@@ -41,11 +42,14 @@ public final class ArticleController implements Controller {
     private void get() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path, HttpMethod.get);
         service.get(
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
+                    ControllerUtil.logRequest(request, path);
+
+                    final UserId userId = authorizer.authorizeStrict(request); // NOPMD - suppressed UnusedLocalVariable - TODO not yet implemented
+
                     LOG.error("Not implemented");
 
                     service.halt(501, "Not Implemented");

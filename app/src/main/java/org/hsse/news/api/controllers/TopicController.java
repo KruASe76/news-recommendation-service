@@ -2,11 +2,14 @@ package org.hsse.news.api.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hsse.news.api.authorizers.Authorizer;
+import org.hsse.news.api.util.ControllerUtil;
 import org.hsse.news.database.topic.TopicService;
+import org.hsse.news.database.user.models.UserId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Service;
-import spark.route.HttpMethod;
+
+import java.util.Optional;
 
 public final class TopicController implements Controller {
     private static final Logger LOG = LoggerFactory.getLogger(TopicController.class);
@@ -44,11 +47,14 @@ public final class TopicController implements Controller {
     private void get() {
         final String path = routePrefix;
 
-        authorizer.enableOptionalAuthorization(path, HttpMethod.get);
         service.get(
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
+                    ControllerUtil.logRequest(request, path);
+
+                    final Optional<UserId> userIdOptional = authorizer.authorizeOptional(request); // NOPMD - suppressed UnusedLocalVariable - TODO not yet implemented
+
                     LOG.error("Not implemented"); // NOPMD - suppressed AvoidDuplicateLiterals - TODO temporal behaviour
 
                     service.halt(501, "Not Implemented"); // NOPMD - suppressed AvoidDuplicateLiterals - TODO temporal behaviour
@@ -60,11 +66,14 @@ public final class TopicController implements Controller {
     private void put() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path, HttpMethod.put);
         service.put(
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
+                    ControllerUtil.logRequest(request, path);
+
+                    final UserId userId = authorizer.authorizeStrict(request); // NOPMD - suppressed UnusedLocalVariable - TODO not yet implemented
+
                     LOG.error("Not implemented");
 
                     service.halt(501, "Not Implemented");
@@ -76,11 +85,14 @@ public final class TopicController implements Controller {
     private void createCustom() {
         final String path = routePrefix + "/custom";
 
-        authorizer.enableAuthorization(path, HttpMethod.post);
         service.post(
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
+                    ControllerUtil.logRequest(request, path);
+
+                    final UserId userId = authorizer.authorizeStrict(request); // NOPMD - suppressed UnusedLocalVariable - TODO not yet implemented
+
                     LOG.error("Not implemented");
 
                     service.halt(501, "Not Implemented");
@@ -92,11 +104,14 @@ public final class TopicController implements Controller {
     private void deleteCustom() {
         final String path = routePrefix + "/custom/:id";
 
-        authorizer.enableAuthorization(path, HttpMethod.delete);
         service.delete(
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
+                    ControllerUtil.logRequest(request, path);
+
+                    final UserId userId = authorizer.authorizeStrict(request); // NOPMD - suppressed UnusedLocalVariable - TODO not yet implemented
+
                     LOG.error("Not implemented");
 
                     service.halt(501, "Not Implemented");

@@ -1,10 +1,11 @@
 package org.hsse.news.api.authorizers;
 
-import spark.route.HttpMethod;
+import org.hsse.news.database.user.models.UserId;
+import spark.Request;
+
+import java.util.Optional;
 
 public interface Authorizer {
-    String USER_ID_ATTRIBUTE = "User-Id";
-
-    void enableAuthorization(String path, HttpMethod method);
-    void enableOptionalAuthorization(String path, HttpMethod method);
+    UserId authorizeStrict(Request request);
+    Optional<UserId> authorizeOptional(Request request);
 }

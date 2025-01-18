@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Response;
 import spark.Service;
-import spark.route.HttpMethod;
 
 import java.util.Optional;
 
@@ -94,14 +93,13 @@ public final class UserController implements Controller {
     private void get() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path, HttpMethod.get);
         service.get(
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
                     ControllerUtil.logRequest(request, path);
 
-                    final UserId userId = ControllerUtil.extractUserId(request, service);
+                    final UserId userId = authorizer.authorizeStrict(request);
 
                     final Optional<User> userOptional = userService.findById(userId);
                     if (userOptional.isEmpty()) {
@@ -126,13 +124,13 @@ public final class UserController implements Controller {
     private void update() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path, HttpMethod.put);
         service.put(
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
                     ControllerUtil.logRequest(request, path);
 
+                    final UserId userId = authorizer.authorizeStrict(request);
                     final UserInfo userInfo =
                             ControllerUtil.validateRequestSchema(
                                     request,
@@ -140,8 +138,6 @@ public final class UserController implements Controller {
                                     service,
                                     objectMapper
                             );
-
-                    final UserId userId = ControllerUtil.extractUserId(request, service);
 
                     try {
                         userService.update(userId, userInfo.email(), userInfo.username());
@@ -160,13 +156,13 @@ public final class UserController implements Controller {
     private void changePassword() {
         final String path = routePrefix + "/password";
 
-        authorizer.enableAuthorization(path, HttpMethod.put);
         service.put(
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
                     ControllerUtil.logRequest(request, path);
 
+                    final UserId userId = authorizer.authorizeStrict(request);
                     final UserPasswordChangeRequest userPasswordChangeRequest =
                             ControllerUtil.validateRequestSchema(
                                     request,
@@ -174,8 +170,6 @@ public final class UserController implements Controller {
                                     service,
                                     objectMapper
                             );
-
-                    final UserId userId = ControllerUtil.extractUserId(request, service);
 
                     try {
                         userService.updatePassword(
