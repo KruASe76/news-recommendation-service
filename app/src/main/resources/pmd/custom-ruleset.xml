@@ -10,11 +10,18 @@
     </rule>
     <rule ref="category/java/codestyle.xml">
         <exclude name="AtLeastOneConstructor"/>
+        <exclude name="LongVariable"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="ShortClassName"/>
+        <exclude name="ShortMethodName"/>
+        <exclude name="ShortVariable"/>
     </rule>
     <rule ref="category/java/design.xml">
         <exclude name="LawOfDemeter"/>
     </rule>
     <rule ref="category/java/errorprone.xml">
+        <exclude name="AvoidFieldNameMatchingMethodName"/>
+        <exclude name="MissingSerialVersionUID"/>
     </rule>
     <rule ref="category/java/multithreading.xml">
     </rule>
