@@ -8,8 +8,8 @@ import org.hsse.news.database.website.exceptions.WebsiteAlreadyExistsException;
 import org.hsse.news.database.website.exceptions.WebsiteNotFoundException;
 import org.hsse.news.database.website.models.Website;
 import org.hsse.news.database.website.models.WebsiteId;
-import org.hsse.news.database.website.repository.JdbiWebsiteRepository;
-import org.hsse.news.database.website.repository.WebsiteRepository;
+import org.hsse.news.database.website.repositories.JdbiWebsiteRepository;
+import org.hsse.news.database.website.repositories.WebsiteRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,11 +43,11 @@ public final class WebsiteService {
 
     public List<Website> getSubscribedWebsitesByUserId(final UserId userId) {
         return websiteRepository.findSubscribedWebsitesByUserId(userId);
-    };
+    }
 
     public List<Website> getUnSubscribedWebsitesByUserId(final UserId userId) {
         return websiteRepository.findUnSubscribedWebsitesByUserId(userId);
-    };
+    }
 
     public Website create(final Website website) {
         return websiteRepository.create(website);

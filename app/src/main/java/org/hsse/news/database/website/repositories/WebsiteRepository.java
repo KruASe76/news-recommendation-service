@@ -1,4 +1,4 @@
-package org.hsse.news.database.website.repository;
+package org.hsse.news.database.website.repositories;
 
 import org.hsse.news.database.user.models.UserId;
 import org.hsse.news.database.website.exceptions.WebsiteAlreadyExistsException;
