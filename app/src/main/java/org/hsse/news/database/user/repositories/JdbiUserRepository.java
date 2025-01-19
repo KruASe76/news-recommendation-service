@@ -75,6 +75,12 @@ public final class JdbiUserRepository implements UserRepository {
 
         jdbi.useTransaction(handle -> {
             try {
+                final Optional<User> userOptional = findById(user.id());
+
+                if (userOptional.isEmpty()) {
+                    throw new UserNotFoundException(user.id());
+                }
+
                 handle.createUpdate("UPDATE users SET email = :email, password = :password, username = :username WHERE user_id = :user_id")
                         .bind("email", user.email())
                         .bind("password", user.password())
@@ -89,10 +95,16 @@ public final class JdbiUserRepository implements UserRepository {
 
     @Override
     public void delete(final @NotNull UserId userId) {
-        jdbi.useTransaction(handle ->
-                handle.createUpdate("DELETE FROM users WHERE user_id = :user_id")
-                        .bind("user_id", userId.value())
-                        .execute()
-        );
+        jdbi.useTransaction(handle -> {
+            final Optional<User> userOptional = findById(userId);
+
+            if (userOptional.isEmpty()) {
+                throw new UserNotFoundException(userId);
+            }
+
+            handle.createUpdate("DELETE FROM users WHERE user_id = :user_id")
+                    .bind("user_id", userId.value())
+                    .execute();
+        });
     }
 }
