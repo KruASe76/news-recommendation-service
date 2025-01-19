@@ -34,7 +34,7 @@ public final class JdbiUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<UserId> authenticate(final @NotNull AuthenticationCredentials credentials) {
+public Optional<UserId> authenticate(final @NotNull AuthenticationCredentials credentials) {
         return jdbi.inTransaction(handle ->
                 handle.createQuery("SELECT * FROM users WHERE email = :email")
                         .bind("email", credentials.email())
