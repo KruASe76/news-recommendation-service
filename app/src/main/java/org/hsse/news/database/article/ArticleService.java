@@ -11,6 +11,7 @@ import org.hsse.news.database.util.TransactionManager;
 import org.hsse.news.database.website.models.WebsiteId;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 public final class ArticleService {
@@ -28,15 +29,19 @@ public final class ArticleService {
         this(new JdbiArticleRepository(), new JdbiTransactionManager());
     }
 
-    public Optional<Article> findById(final ArticleId articleId) {
+    public Optional<Article> findById(final ArticleId articleId) { // NOPMD
         return articleRepository.findById(articleId);
+    }
+
+    public List<Article> getAll() {
+        return articleRepository.getAll();
     }
 
     public Article create(final Article article) {
         return articleRepository.create(article);
     }
 
-    public void update(final ArticleId articleId,
+    public void update(final ArticleId articleId, // NOPMD
                        final String title,
                        final String url,
                        final Timestamp createdAt,

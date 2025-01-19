@@ -61,9 +61,11 @@ public record Article(
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
+    public boolean equals(final Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Article article = (Article) o;
         return id != null && id.equals(article.id);
     }
 

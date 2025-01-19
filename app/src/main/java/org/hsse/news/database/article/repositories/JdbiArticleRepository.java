@@ -8,6 +8,7 @@ import org.jdbi.v3.core.Jdbi;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 public final class JdbiArticleRepository implements ArticleRepository {
@@ -25,7 +26,7 @@ public final class JdbiArticleRepository implements ArticleRepository {
     public Optional<Article> findById(final @NotNull ArticleId articleId) {
         return jdbi.inTransaction( handle ->
                 handle.createQuery("SELECT * FROM articles WHERE article_id = :article_id")
-                        .bind("article_id", articleId.value())
+                        .bind("article_id", articleId.value()) // NOPMD
                         .mapTo(Article.class)
                         .findFirst()
         );
@@ -41,8 +42,8 @@ public final class JdbiArticleRepository implements ArticleRepository {
                         .bind("title", article.title())
                         .bind("url", article.url())
                         .bind("created_at", article.createdAt())
-                        .bind("topic_id", article.topicId().value())
-                        .bind("website_id", article.websiteId().value())
+                        .bind("topic_id", article.topicId())
+                        .bind("website_id", article.websiteId())
                         .executeAndReturnGeneratedKeys("article_id")
                         .mapTo(ArticleId.class)
                         .one()
@@ -75,6 +76,15 @@ public final class JdbiArticleRepository implements ArticleRepository {
             handle.createUpdate("DELETE FROM articles WHERE article_id = :article_id")
                     .bind("article_id", articleId.value())
                     .execute()
+        );
+    }
+
+    @Override
+    public List<Article> getAll() {
+        return jdbi.inTransaction(handle ->
+                handle.createQuery("SELECT * FROM articles")
+                        .mapTo(Article.class)
+                        .collectIntoList()
         );
     }
 }
