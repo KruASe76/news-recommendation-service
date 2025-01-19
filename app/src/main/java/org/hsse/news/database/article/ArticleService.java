@@ -5,9 +5,12 @@ import org.hsse.news.database.article.models.Article;
 import org.hsse.news.database.article.models.ArticleId;
 import org.hsse.news.database.article.repositories.ArticleRepository;
 import org.hsse.news.database.article.repositories.JdbiArticleRepository;
+import org.hsse.news.database.topic.models.TopicId;
 import org.hsse.news.database.util.JdbiTransactionManager;
 import org.hsse.news.database.util.TransactionManager;
+import org.hsse.news.database.website.models.WebsiteId;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
 public final class ArticleService {
@@ -36,9 +39,10 @@ public final class ArticleService {
     public void update(final ArticleId articleId,
                        final String title,
                        final String url,
-                       final String createdAt,
-                       final String topic
-    ) {
+                       final Timestamp createdAt,
+                       final TopicId topicId,
+                       final WebsiteId websiteId
+                       ) {
         transactionManager.useTransaction(() -> {
             final Article articleToUpdate =
                     articleRepository.findById(articleId)
@@ -49,7 +53,8 @@ public final class ArticleService {
                             .withTitle(title)
                             .withUrl(url)
                             .withCreatedAt(createdAt)
-                            .withTopic(topic)
+                            .withTopicId(topicId)
+                            .withWebsiteId(websiteId)
             );
         });
     }

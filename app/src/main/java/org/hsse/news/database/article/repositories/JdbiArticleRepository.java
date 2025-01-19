@@ -33,21 +33,20 @@ public final class JdbiArticleRepository implements ArticleRepository {
 
     @Override
     public @NotNull Article create(final @NotNull Article article) {
-        return jdbi.inTransaction(handle -> {
-            return article.initializeWithId(
-                    handle.createUpdate(
-                            "INSERT INTO articles (title, url, created_at, topic) " +
-                                    "VALUES (:title, :url, :created_at, :topic)"
-                    )
-                            .bind("title", article.title())
-                            .bind("url", article.url())
-                            .bind("created_at", article.createdAt())
-                            .bind("topic", article.topic())
-                            .executeAndReturnGeneratedKeys("article_id")
-                            .mapTo(ArticleId.class)
-                            .one()
-            );
-        });
+        return jdbi.inTransaction(handle -> article.initializeWithId(
+                handle.createUpdate(
+                        "INSERT INTO articles (title, url, created_at, topic_id, website_id) " +
+                                "VALUES (:title, :url, :created_at, :topic_id, :website_id)"
+                )
+                        .bind("title", article.title())
+                        .bind("url", article.url())
+                        .bind("created_at", article.createdAt())
+                        .bind("topic_id", article.topicId().value())
+                        .bind("website_id", article.websiteId().value())
+                        .executeAndReturnGeneratedKeys("article_id")
+                        .mapTo(ArticleId.class)
+                        .one()
+        ));
     }
 
     @Override
@@ -57,12 +56,14 @@ public final class JdbiArticleRepository implements ArticleRepository {
         }
 
         jdbi.useTransaction(handle ->
-            handle.createUpdate("UPDATE articles SET title = :title, url = :url, created_at = :created_at, topic = :topic " +
-                       "WHERE article_id = :article_id")
+            handle.createUpdate("UPDATE articles SET title = :title, url = :url, " +
+                            "created_at = :created_at, topic_id = :topic_id, website_id = :website_id" +
+                            "WHERE article_id = :article_id")
                .bind("title", article.title())
                .bind("url", article.url())
                .bind("created_at", article.createdAt())
-               .bind("topic", article.topic())
+               .bind("topic_id", article.topicId())
+               .bind("website_id", article.websiteId())
                .bind("article_id", article.id().value())
                .execute()
         );

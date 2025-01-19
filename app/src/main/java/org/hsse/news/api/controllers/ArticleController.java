@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import spark.Service;
 import spark.route.HttpMethod;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 
 public final class ArticleController implements Controller {
@@ -52,7 +54,7 @@ public final class ArticleController implements Controller {
     private void get() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path, HttpMethod.get);
+//        authorizer.enableAuthorization(path, HttpMethod.get);
         service.get(
                 path,
                 ACCEPT_TYPE,
@@ -76,7 +78,8 @@ public final class ArticleController implements Controller {
                                     articleOptional.get().title(),
                                     articleOptional.get().url(),
                                     articleOptional.get().createdAt(),
-                                    articleOptional.get().topic()
+                                    articleOptional.get().topicId(),
+                                    articleOptional.get().websiteId()
                             )
                     );
                 }
@@ -86,7 +89,7 @@ public final class ArticleController implements Controller {
     private void update() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path, HttpMethod.put);
+//        authorizer.enableAuthorization(path, HttpMethod.put);
         service.put(
                 path,
                 ACCEPT_TYPE,
@@ -105,7 +108,7 @@ public final class ArticleController implements Controller {
 
                     articleService.update(articleId, articleInfo.title(),
                             articleInfo.url(), articleInfo.createdAt(),
-                            articleInfo.topic()
+                            articleInfo.topicId(), articleInfo.websiteId()
                     );
 
                     LOG.debug("Successfully updated article with id = {}", articleId);
@@ -119,7 +122,7 @@ public final class ArticleController implements Controller {
     private void delete() {
         final String path = routePrefix;
 
-        authorizer.enableAuthorization(path, HttpMethod.delete);
+//        authorizer.enableAuthorization(path, HttpMethod.delete);
         service.delete(
                 path,
                 ACCEPT_TYPE,
@@ -154,7 +157,7 @@ public final class ArticleController implements Controller {
     private void create() {
         final String path = routePrefix + "/create";
 
-        authorizer.enableAuthorization(path, HttpMethod.post);
+//        authorizer.enableAuthorization(path, HttpMethod.post);
         service.post(
                 path,
                 ACCEPT_TYPE,
@@ -173,8 +176,9 @@ public final class ArticleController implements Controller {
                             new Article(
                                     articleCreateRequest.newTitle(),
                                     articleCreateRequest.newUrl(),
-                                    articleCreateRequest.newCreatedAt(),
-                                    articleCreateRequest.newTopic()
+                                    new Timestamp(new Date().getTime()),
+                                    articleCreateRequest.newTopicId(),
+                                    articleCreateRequest.newWebsiteId()
                             )
                     );
 
