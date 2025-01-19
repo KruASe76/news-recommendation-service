@@ -40,7 +40,7 @@ public class SparkApplication implements SubApplication {
                 new ArticleController(API_PREFIX, service, articleService, objectMapper, authorizer),
                 new TopicController(API_PREFIX, service, topicService, objectMapper, authorizer),
                 new UserController(API_PREFIX, service, userService, objectMapper, authorizer),
-                new WebsiteController(API_PREFIX, service, websiteService, objectMapper, authorize, config.getInt("website.max-custom-per-user"))
+                new WebsiteController(API_PREFIX, service, websiteService, objectMapper, authorizer, config.getInt("website.max-custom-per-user"))
         );
     }
 
