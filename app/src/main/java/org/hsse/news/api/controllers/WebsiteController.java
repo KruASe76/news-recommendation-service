@@ -82,7 +82,7 @@ public final class WebsiteController implements Controller {
                                         website.url(),
                                         website.description()
                                 ));
-                        return objectMapper.writeValueAsString(websites.toList());
+                        return objectMapper.writeValueAsString(Map.of("subscribed", List.of(), "other", websites.toList()));
                     }
 
                     Stream<WebsiteResponse> subscribed = websiteService.getSubscribedWebsitesByUserId(userId.get())
