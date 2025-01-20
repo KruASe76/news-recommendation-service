@@ -10,51 +10,51 @@ import org.slf4j.LoggerFactory;
 import spark.Service;
 
 public final class ArticleController implements Controller {
-  private static final Logger LOG = LoggerFactory.getLogger(ArticleController.class);
-  private static final String ARTICLES_PREFIX = "/articles";
-  private static final String ACCEPT_TYPE = "application/json";
+    private static final Logger LOG = LoggerFactory.getLogger(ArticleController.class);
+    private static final String ARTICLES_PREFIX = "/articles";
+    private static final String ACCEPT_TYPE = "application/json";
 
-  private final String routePrefix;
-  private final Service service;
-  private final ArticleService articleService; // NOPMD - suppressed UnusedPrivateField - TODO not yet implemented
-  private final ObjectMapper objectMapper; // NOPMD - suppressed UnusedPrivateField - TODO not yet implemented
-  private final Authorizer authorizer;
+    private final String routePrefix;
+    private final Service service;
+    private final ArticleService articleService; // NOPMD - suppressed UnusedPrivateField - TODO not yet implemented
+    private final ObjectMapper objectMapper; // NOPMD - suppressed UnusedPrivateField - TODO not yet implemented
+    private final Authorizer authorizer;
 
-  public ArticleController(
-      final String apiPrefix,
-      final Service service,
-      final ArticleService articleService,
-      final ObjectMapper objectMapper,
-      final Authorizer authorizer
-  ) {
-    this.routePrefix = apiPrefix + ARTICLES_PREFIX;
-    this.service = service;
-    this.articleService = articleService;
-    this.objectMapper = objectMapper;
-    this.authorizer = authorizer;
-  }
+    public ArticleController(
+            final String apiPrefix,
+            final Service service,
+            final ArticleService articleService,
+            final ObjectMapper objectMapper,
+            final Authorizer authorizer
+    ) {
+        this.routePrefix = apiPrefix + ARTICLES_PREFIX;
+        this.service = service;
+        this.articleService = articleService;
+        this.objectMapper = objectMapper;
+        this.authorizer = authorizer;
+    }
 
-  @Override
-  public void initializeEndpoints() {
-    get();
-  }
+    @Override
+    public void initializeEndpoints() {
+        get();
+    }
 
-  private void get() {
-    final String path = routePrefix;
+    private void get() {
+        final String path = routePrefix;
 
-    service.get(
-        path,
-        ACCEPT_TYPE,
-        (request, response) -> {
-          ControllerUtil.logRequest(request, path);
+        service.get(
+                path,
+                ACCEPT_TYPE,
+                (request, response) -> {
+                    ControllerUtil.logRequest(request, path);
 
-          final UserId userId = authorizer.authorizeStrict(request); // NOPMD - suppressed UnusedLocalVariable - TODO not yet implemented
+                    final UserId userId = authorizer.authorizeStrict(request); // NOPMD - suppressed UnusedLocalVariable - TODO not yet implemented
 
-          LOG.error("Not implemented");
+                    LOG.error("Not implemented");
 
-          service.halt(501, "Not Implemented");
-          return null;
-        }
-    );
-  }
+                    service.halt(501, "Not Implemented");
+                    return null;
+                }
+        );
+    }
 }

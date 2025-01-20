@@ -1,10 +1,6 @@
 package org.hsse.news.database.topic.models;
 
 import org.hsse.news.database.user.exceptions.UserInitializationException;
-import org.hsse.news.database.user.models.User;
-import org.hsse.news.database.user.models.UserId;
-import org.hsse.news.database.topic.models.TopicId;
-import org.jdbi.v3.core.mapper.Nested;
 import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,42 +8,42 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public record Topic(
-    @Nullable TopicId id, @NotNull String description
+        @Nullable TopicId id, @NotNull String description
 ) {
-  @JdbiConstructor
-  public Topic {}
+    @JdbiConstructor
+    public Topic {}
 
-  public Topic(final @NotNull String description){
-    this(null, description);
-  }
-
-  public Topic initializeWithId(final @NotNull TopicId newId) {
-    if (id != null) {
-      throw new UserInitializationException("Topic is already initialized");
+    public Topic(final @NotNull String description){
+        this(null, description);
     }
 
-    return new Topic(newId, description);
-  }
+    public Topic initializeWithId(final @NotNull TopicId newId) {
+        if (id != null) {
+            throw new UserInitializationException("Topic is already initialized");
+        }
 
-  public Topic withDescription(final @NotNull String newDescription) {
-    return new Topic(id, newDescription);
-  }
-
-  @Override
-  public boolean equals(final Object object) {
-    if (this == object) {
-      return true;
+        return new Topic(newId, description);
     }
 
-    if (!(object instanceof Topic topic)) {
-      return false;
+    public Topic withDescription(final @NotNull String newDescription) {
+        return new Topic(id, newDescription);
     }
 
-    return id != null && id.equals(topic.id);
-  }
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
 
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id);
-  }
+        if (!(object instanceof Topic topic)) {
+            return false;
+        }
+
+        return id != null && id.equals(topic.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
