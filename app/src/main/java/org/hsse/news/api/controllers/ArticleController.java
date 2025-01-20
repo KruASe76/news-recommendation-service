@@ -15,10 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class ArticleController implements Controller {
     private static final Logger LOG = LoggerFactory.getLogger(ArticleController.class);
@@ -36,7 +35,7 @@ public final class ArticleController implements Controller {
     public ArticleController(
             final String apiPrefix,
             final Service service,
-            final ArticleService articleService, WebsiteService websiteService, TopicService topicService,
+            final ArticleService articleService, final WebsiteService websiteService, final TopicService topicService,
             final ObjectMapper objectMapper,
             final Authorizer authorizer
     ) {
@@ -66,13 +65,13 @@ public final class ArticleController implements Controller {
 
                     final ArticleCastUtil castUtil = new ArticleCastUtil(topicService, websiteService);
                     final List<Article> articleList = articleService.getAllUnknown(userId);
-                    final Map<String, ArticleResponse> responses = new HashMap<>();
+                    final Map<String, ArticleResponse> responses = new ConcurrentHashMap<>();
 
                     for (final Article article : articleList) {
-                        if (!responses.containsKey(article.url())) {
-                            responses.put(article.url(), castUtil.fromArticle(article));
-                        } else {
+                        if (responses.containsKey(article.url())) {
                             responses.get(article.url()).addTopic(topicService.getTopicNameById(article.topicId()));
+                        } else {
+                            responses.put(article.url(), castUtil.fromArticle(article));
                         }
 
                     }

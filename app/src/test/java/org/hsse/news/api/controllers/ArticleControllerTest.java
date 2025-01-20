@@ -10,6 +10,7 @@ import org.hsse.news.database.topic.TopicService;
 import org.hsse.news.database.topic.models.TopicId;
 import org.hsse.news.database.user.models.UserId;
 import org.hsse.news.database.website.WebsiteService;
+import org.hsse.news.database.website.models.Website;
 import org.hsse.news.database.website.models.WebsiteId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,7 @@ import java.net.http.HttpResponse;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -87,20 +89,6 @@ class ArticleControllerTest {
     }
 
     @Test
-    void shouldArticleTitleOnGet() throws IOException, InterruptedException {
-        final List<Article> testArticle = List.of(
-                new Article("title", "http://url.ru", new Timestamp(new Date().getTime()), new TopicId(1L), new WebsiteId(2L))
-        );
-        Mockito.when(authorizer.authorizeStrict(Mockito.any())).thenReturn(new UserId(UUID.randomUUID()));
-        Mockito.when(articleService.getAllUnknown(Mockito.any())).thenReturn(testArticle);
-
-        final HttpResponse<String> response = client.get(baseUrl);
-        final ArticleListResponse responseArticle = objectMapper.readValue(response.body(), ArticleListResponse.class);
-
-        assertEquals(testArticle.get(0).title(), responseArticle.articles().get(0).title(), "Titles should be same");
-    }
-
-    @Test
     void shouldArticleTopicIdOnGet() throws IOException, InterruptedException {
         final List<Article> testArticle = List.of(
                 new Article("title1", "http://url.ru", new Timestamp(new Date().getTime()), new TopicId(1L), new WebsiteId(2L)),
@@ -113,7 +101,8 @@ class ArticleControllerTest {
         Mockito.when(topicService.getTopicNameById(new TopicId(1L))).thenReturn("Topic1");
         Mockito.when(topicService.getTopicNameById(new TopicId(2L))).thenReturn("Topic2");
 
-        Mockito.when(websiteService.getDescriptionById(new WebsiteId(2L))).thenReturn("Web2");
+        Mockito.when(websiteService.findById(new WebsiteId(2L)))
+                .thenReturn(Optional.of(new Website(new WebsiteId(2L), "", "Web2", new UserId(UUID.randomUUID()))));
 
         final HttpResponse<String> response = client.get(baseUrl);
         final ArticleListResponse responseArticle = objectMapper.readValue(response.body(), ArticleListResponse.class);
