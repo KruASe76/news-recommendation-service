@@ -1,7 +1,7 @@
 package org.hsse.news.api.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hsse.news.api.util.Authorizer;
+import org.hsse.news.api.authorizers.BasicAuthorizer;
 import org.hsse.news.api.util.SimpleHttpClient;
 import org.hsse.news.database.topic.TopicService;
 import org.junit.jupiter.api.AfterEach;
@@ -31,7 +31,7 @@ class TopicControllerTest {
     private TopicService topicService;
 
     @Mock
-    private Authorizer authorizer;
+    private BasicAuthorizer authorizer;
 
     @BeforeEach
     void setUp() {

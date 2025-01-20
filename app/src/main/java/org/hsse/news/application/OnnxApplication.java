@@ -1,12 +1,12 @@
 package org.hsse.news.application;
 
 import ai.onnxruntime.OrtException;
-import java.nio.charset.StandardCharsets;
-
-import java.util.List;
-import java.util.Map;
 import org.hsse.news.model.OnnxModelRunner;
 import org.hsse.news.util.ResourceUtil;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
 
 public class OnnxApplication {
   public static final String MODEL_PATH = ResourceUtil.getResource("/onnx_model/trfs-model.onnx");

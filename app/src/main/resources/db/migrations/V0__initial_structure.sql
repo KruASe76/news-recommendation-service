@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS topics
 
 CREATE TABLE IF NOT EXISTS websites
 (
-    website_id  bigserial NOT NULL PRIMARY KEY,
-    url         text      NOT NULL,
-    description text      NOT NULL,
+    website_id  bigserial        NOT NULL PRIMARY KEY,
+    url         text      UNIQUE NOT NULL,
+    description text             NOT NULL,
     creator_id  uuid REFERENCES users (user_id) ON DELETE CASCADE
 );
 

@@ -77,19 +77,12 @@ tasks.jacocoTestReport {
 tasks.jacocoTestCoverageVerification {
     violationRules {
         rule {
-            element = "CLASS"
-            excludes = listOf(
-                "org.hsse.news.Application",
-                "org.hsse.news.api.SparkApplication",
-                "org.hsse.news.util.ResourceUtil",
-                "org.hsse.news.model.OnnxModelRunner",
-                "org.hsse.news.application.OnnxApplication"
-            )
+            element = "BUNDLE"
 
             limit {
                 counter = "LINE"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal.valueOf(0.0)
+                minimum = BigDecimal.valueOf(0.25)
             }
         }
     }
