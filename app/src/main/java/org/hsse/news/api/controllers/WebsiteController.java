@@ -2,6 +2,7 @@ package org.hsse.news.api.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.typesafe.config.ConfigFactory;
 import org.hsse.news.api.authorizers.Authorizer;
 import org.hsse.news.api.schemas.request.website.WebsitePostRequest;
 import org.hsse.news.api.schemas.response.error.UserExceededQuantityLimitResponse;
@@ -31,23 +32,21 @@ public final class WebsiteController implements Controller {
     private static final String WEBSITES_PREFIX = "/websites";
     private static final String ACCEPT_TYPE = "application/json";
     private static final String ID_URL_PARAM = "id";
+    private static final int MAX_WEBSITES_PER_USER = ConfigFactory.load().getInt("website.max-custom-per-user");
 
     private final String routePrefix;
     private final Service service;
     private final WebsiteService websiteService;
     private final ObjectMapper objectMapper;
     private final Authorizer authorizer;
-    private final Integer maxWebsitesPerUser;
 
     public WebsiteController(
             final String apiPrefix,
             final Service service,
             final WebsiteService websiteService,
             final ObjectMapper objectMapper,
-            final Authorizer authorizer,
-            final Integer maxWebsitesPerUser
+            final Authorizer authorizer
     ) {
-        this.maxWebsitesPerUser = maxWebsitesPerUser;
         this.routePrefix = apiPrefix + WEBSITES_PREFIX;
         this.service = service;
         this.websiteService = websiteService;
@@ -75,31 +74,40 @@ public final class WebsiteController implements Controller {
                     final Optional<UserId> userId = authorizer.authorizeOptional(request);
 
                     if (userId.isEmpty()) {
-                        Stream<WebsiteResponse> websites = websiteService.getAll()
+                        final Stream<WebsiteResponse> websites = websiteService.getAll()
                                 .stream()
-                                .map(website -> new WebsiteResponse(
-                                        website.id().value(),
-                                        website.url(),
-                                        website.description()
-                                ));
+                                .map(website -> {
+                                    assert website.id() != null;
+                                    return new WebsiteResponse(
+                                            website.id().value(),
+                                            website.url(),
+                                            website.description()
+                                    );
+                                });
                         return objectMapper.writeValueAsString(Map.of("subscribed", List.of(), "other", websites.toList()));
                     }
 
-                    Stream<WebsiteResponse> subscribed = websiteService.getSubscribedWebsitesByUserId(userId.get())
+                    final Stream<WebsiteResponse> subscribed = websiteService.getSubscribedWebsitesByUserId(userId.get())
                             .stream()
-                            .map(website -> new WebsiteResponse(
-                                    website.id().value(),
-                                    website.url(),
-                                    website.description()
-                            ));
+                            .map(website -> {
+                                assert website.id() != null;
+                                return new WebsiteResponse(
+                                        website.id().value(),
+                                        website.url(),
+                                        website.description()
+                                );
+                            });
 
-                    Stream<WebsiteResponse> other = websiteService.getUnSubscribedWebsitesByUserId(userId.get())
+                    final Stream<WebsiteResponse> other = websiteService.getUnSubscribedWebsitesByUserId(userId.get())
                             .stream()
-                            .map(website -> new WebsiteResponse(
-                                    website.id().value(),
-                                    website.url(),
-                                    website.description()
-                            ));
+                            .map(website -> {
+                                assert website.id() != null;
+                                return new WebsiteResponse(
+                                        website.id().value(),
+                                        website.url(),
+                                        website.description()
+                                );
+                            });
 
                     return objectMapper.writeValueAsString(
                         Map.of("subscribed", subscribed.toList(), "other", other.toList())
@@ -157,7 +165,7 @@ public final class WebsiteController implements Controller {
                                     objectMapper
                             );
 
-                    Website website;
+                    final Website website;
                     try {
                         website = websiteService.create(
                                 new Website(rawWebsite.url().toString(), rawWebsite.description(), userId)
@@ -169,6 +177,7 @@ public final class WebsiteController implements Controller {
                         return processWebsiteAlreadyExists(exc, response);
                     }
 
+                    assert website.id() != null;
                     return objectMapper.writeValueAsString(
                             new WebsiteResponse(
                                     website.id().value(),
@@ -218,7 +227,7 @@ public final class WebsiteController implements Controller {
         LOG.debug("User exceeded quantity limit: {}", exc.getMessage());
         response.status(406);
         return objectMapper.writeValueAsString(
-            new UserExceededQuantityLimitResponse("User exceeded quantity limit subscribed websites", maxWebsitesPerUser)
+            new UserExceededQuantityLimitResponse("User exceeded quantity limit subscribed websites", MAX_WEBSITES_PER_USER)
         );
     }
 

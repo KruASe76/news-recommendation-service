@@ -1,5 +1,6 @@
 package org.hsse.news.database.website;
 
+import com.typesafe.config.ConfigFactory;
 import org.hsse.news.database.user.models.UserId;
 import org.hsse.news.database.util.JdbiTransactionManager;
 import org.hsse.news.database.util.TransactionManager;
@@ -15,22 +16,24 @@ import java.util.List;
 import java.util.Optional;
 
 public final class WebsiteService {
+    private static final int MAX_WEBSITES_PER_USER = ConfigFactory.load().getInt("website.max-custom-per-user");
+
     private final WebsiteRepository websiteRepository;
     private final TransactionManager transactionManager;
-    private final Integer maxWebsitesPerUser;
 
     public WebsiteService(
             final WebsiteRepository websiteRepository,
-            final TransactionManager transactionManager,
-            final Integer maxWebsitesPerUser
+            final TransactionManager transactionManager
     ) {
-        this.maxWebsitesPerUser = maxWebsitesPerUser;
         this.websiteRepository = websiteRepository;
         this.transactionManager = transactionManager;
     }
 
-    public WebsiteService(final Integer maxWebsitesPerUser) {
-        this(new JdbiWebsiteRepository(), new JdbiTransactionManager(), maxWebsitesPerUser);
+    public WebsiteService() {
+        this(
+                new JdbiWebsiteRepository(),
+                new JdbiTransactionManager()
+        );
     }
 
     public Optional<Website> findById(final WebsiteId websiteId) {
@@ -72,7 +75,7 @@ public final class WebsiteService {
     }
 
     public void tryUpdateSubscribedWebsites(final List<WebsiteId> websites, final UserId userId) {
-        if (websites.size() > maxWebsitesPerUser) {
+        if (websites.size() > MAX_WEBSITES_PER_USER) {
             throw new QuantityLimitExceededWebsitesPerUserException(userId);
         }
 

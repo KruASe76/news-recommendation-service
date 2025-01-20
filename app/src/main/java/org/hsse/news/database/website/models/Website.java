@@ -1,9 +1,7 @@
 package org.hsse.news.database.website.models;
 
 import org.hsse.news.database.user.exceptions.UserInitializationException;
-import org.hsse.news.database.user.models.User;
 import org.hsse.news.database.user.models.UserId;
-import org.hsse.news.database.website.models.WebsiteId;
 import org.jdbi.v3.core.mapper.Nested;
 import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
 import org.jetbrains.annotations.NotNull;

@@ -49,7 +49,7 @@ public final class ControllerUtil {
         } catch (JsonProcessingException e) {
             LOG.debug("Invalid JSON: {}", e.getMessage());
             service.halt(422, "Validation error");
-            return null;
+            return List.of();
         }
     }
 

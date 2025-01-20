@@ -1,6 +1,5 @@
 package org.hsse.news.database.website.exceptions;
 
-import org.hsse.news.database.user.models.UserId;
 import org.hsse.news.database.website.models.WebsiteId;
 
 public final class WebsiteNotFoundException extends RuntimeException {

@@ -1,8 +1,6 @@
 package org.hsse.news.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 import org.hsse.news.api.authorizers.Authorizer;
 import org.hsse.news.api.authorizers.BasicAuthorizer;
 import org.hsse.news.api.controllers.ArticleController;
@@ -32,7 +30,6 @@ public class SparkApplication implements SubApplication {
     ) {
         final Service service = Service.ignite();
         final ObjectMapper objectMapper = new ObjectMapper();
-        final Config config = ConfigFactory.load();
 
         final Authorizer authorizer = new BasicAuthorizer(service, userService);
 
@@ -40,7 +37,7 @@ public class SparkApplication implements SubApplication {
                 new ArticleController(API_PREFIX, service, articleService, objectMapper, authorizer),
                 new TopicController(API_PREFIX, service, topicService, objectMapper, authorizer),
                 new UserController(API_PREFIX, service, userService, objectMapper, authorizer),
-                new WebsiteController(API_PREFIX, service, websiteService, objectMapper, authorizer, config.getInt("website.max-custom-per-user"))
+                new WebsiteController(API_PREFIX, service, websiteService, objectMapper, authorizer)
         );
     }
 
