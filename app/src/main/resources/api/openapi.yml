@@ -366,9 +366,16 @@ components:
           type: string
           example: "News, reviews, advice and more about latest technologies"
     WebsiteList:
-      type: array
-      items:
-        $ref: '#/components/schemas/Website'
+      type: object
+      properties:
+        subscribed:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
+        other:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
     CustomWebsite:
       type: object
       properties:

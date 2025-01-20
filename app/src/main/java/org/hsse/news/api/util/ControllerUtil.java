@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Service;
 
+import java.util.List;
 import java.util.Locale;
 
 public final class ControllerUtil {
@@ -20,6 +21,36 @@ public final class ControllerUtil {
                 request.requestMethod().toUpperCase(Locale.ROOT),
                 path
         );
+    }
+
+    public static <T> @NotNull T validateParamSchema(
+            final Request request, final Class<T> schemaType, final String paramName,
+            final Service service, final ObjectMapper objectMapper
+    ) {
+        final T schema;
+
+        try {
+            schema = objectMapper.readValue(request.params(paramName), schemaType);
+        } catch (final JsonProcessingException exc) {
+            LOG.debug("Invalid param: {}", exc.getMessage());
+            service.halt(422, "Validation error");
+            return null;
+        }
+
+        return schema;
+    }
+
+    public static <T> @NotNull List<T> validateRequestSchemas(
+            final Request request, final Class<T> schemaType,
+            final Service service, final ObjectMapper objectMapper
+    ) {
+        try {
+            return objectMapper.readerForListOf(schemaType).readValue(request.body());
+        } catch (JsonProcessingException e) {
+            LOG.debug("Invalid JSON: {}", e.getMessage());
+            service.halt(422, "Validation error");
+            return null;
+        }
     }
 
     public static <T> @NotNull T validateRequestSchema(
