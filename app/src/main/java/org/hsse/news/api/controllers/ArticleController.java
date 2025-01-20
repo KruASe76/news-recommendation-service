@@ -8,6 +8,7 @@ import org.hsse.news.api.util.ArticleCastUtil;
 import org.hsse.news.api.util.ControllerUtil;
 import org.hsse.news.database.article.ArticleService;
 import org.hsse.news.database.article.models.Article;
+import org.hsse.news.database.user.models.UserId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Service;
@@ -52,10 +53,10 @@ public final class ArticleController implements Controller {
                 path,
                 ACCEPT_TYPE,
                 (request, response) -> {
-                    authorizer.authorizeOptional(request);
+                    final UserId userId = authorizer.authorizeStrict(request);
                     ControllerUtil.logRequest(request, path);
 
-                    final List<Article> articleList = articleService.getAll();
+                    final List<Article> articleList = articleService.getAllUnknown(userId);
                     final List<ArticleResponse> responses = new ArrayList<>();
 
                     for (final Article article : articleList) {

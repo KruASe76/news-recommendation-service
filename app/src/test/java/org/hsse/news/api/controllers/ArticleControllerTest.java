@@ -7,6 +7,7 @@ import org.hsse.news.api.util.SimpleHttpClient;
 import org.hsse.news.database.article.ArticleService;
 import org.hsse.news.database.article.models.Article;
 import org.hsse.news.database.topic.models.TopicId;
+import org.hsse.news.database.user.models.UserId;
 import org.hsse.news.database.website.models.WebsiteId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,7 @@ import java.net.http.HttpResponse;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -69,6 +71,7 @@ class ArticleControllerTest {
 
     @Test
     void should200OnGet() throws IOException, InterruptedException {
+        Mockito.when(authorizer.authorizeStrict(Mockito.any())).thenReturn(new UserId(UUID.randomUUID()));
         final HttpResponse<String> response = client.get(baseUrl);
         assertEquals(200, response.statusCode(), "should be 200 (OK)");
     }
@@ -78,7 +81,8 @@ class ArticleControllerTest {
         final List<Article> testArticle = List.of(
                 new Article("title", "http://url.ru", new Timestamp(new Date().getTime()), new TopicId(1L), new WebsiteId(2L))
         );
-        Mockito.when(articleService.getAll()).thenReturn(testArticle);
+        Mockito.when(authorizer.authorizeStrict(Mockito.any())).thenReturn(new UserId(UUID.randomUUID()));
+        Mockito.when(articleService.getAllUnknown(Mockito.any())).thenReturn(testArticle);
 
         final HttpResponse<String> response = client.get(baseUrl);
         final ArticleListResponse responseArticle = objectMapper.readValue(response.body(), ArticleListResponse.class);
@@ -91,7 +95,8 @@ class ArticleControllerTest {
         final List<Article> testArticle = List.of(
                 new Article("title", "http://url.ru", new Timestamp(new Date().getTime()), new TopicId(1L), new WebsiteId(2L))
         );
-        Mockito.when(articleService.getAll()).thenReturn(testArticle);
+        Mockito.when(authorizer.authorizeStrict(Mockito.any())).thenReturn(new UserId(UUID.randomUUID()));
+        Mockito.when(articleService.getAllUnknown(Mockito.any())).thenReturn(testArticle);
 
         final HttpResponse<String> response = client.get(baseUrl);
         final ArticleListResponse responseArticle = objectMapper.readValue(response.body(), ArticleListResponse.class);

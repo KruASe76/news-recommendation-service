@@ -3,6 +3,7 @@ package org.hsse.news.database.article.repositories;
 import org.hsse.news.database.article.exceptions.ArticleNotFoundException;
 import org.hsse.news.database.article.models.Article;
 import org.hsse.news.database.article.models.ArticleId;
+import org.hsse.news.database.user.models.UserId;
 import org.hsse.news.util.JdbiProvider;
 import org.jdbi.v3.core.Jdbi;
 
@@ -80,9 +81,14 @@ public final class JdbiArticleRepository implements ArticleRepository {
     }
 
     @Override
-    public List<Article> getAll() {
+    public List<Article> getAllUnknown(final UserId userId) {
         return jdbi.inTransaction(handle ->
-                handle.createQuery("SELECT * FROM articles")
+                handle.createQuery("SELECT * FROM articles " +
+                                "WHERE topic_id IN (SELECT topic_id FROM users WHERE user_id = :user_id AND " +
+                                ":user_id NOT IN (SELECT article_id FROM user_articles WHERE user_id - :user_id)) AND " +
+                                "website_id IN (SELECT website_id FROM users WHERE user_id = :user_id)"
+                        )
+                        .bind("user_id", userId)
                         .mapTo(Article.class)
                         .collectIntoList()
         );
