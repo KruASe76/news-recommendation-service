@@ -8,13 +8,17 @@ import org.hsse.news.api.util.ArticleCastUtil;
 import org.hsse.news.api.util.ControllerUtil;
 import org.hsse.news.database.article.ArticleService;
 import org.hsse.news.database.article.models.Article;
+import org.hsse.news.database.topic.TopicService;
 import org.hsse.news.database.user.models.UserId;
+import org.hsse.news.database.website.WebsiteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class ArticleController implements Controller {
     private static final Logger LOG = LoggerFactory.getLogger(ArticleController.class);
@@ -24,19 +28,23 @@ public final class ArticleController implements Controller {
     private final String routePrefix;
     private final Service service;
     private final ArticleService articleService; // NOPMD - suppressed UnusedPrivateField - TODO not yet implemented
+    private final WebsiteService websiteService;
+    private final TopicService topicService;
     private final ObjectMapper objectMapper; // NOPMD - suppressed UnusedPrivateField - TODO not yet implemented
     private final Authorizer authorizer;
 
     public ArticleController(
             final String apiPrefix,
             final Service service,
-            final ArticleService articleService,
+            final ArticleService articleService, WebsiteService websiteService, TopicService topicService,
             final ObjectMapper objectMapper,
             final Authorizer authorizer
     ) {
         this.routePrefix = apiPrefix + ARTICLES_PREFIX;
         this.service = service;
         this.articleService = articleService;
+        this.websiteService = websiteService;
+        this.topicService = topicService;
         this.objectMapper = objectMapper;
         this.authorizer = authorizer;
     }
@@ -56,11 +64,17 @@ public final class ArticleController implements Controller {
                     final UserId userId = authorizer.authorizeStrict(request);
                     ControllerUtil.logRequest(request, path);
 
+                    final ArticleCastUtil castUtil = new ArticleCastUtil(topicService, websiteService);
                     final List<Article> articleList = articleService.getAllUnknown(userId);
-                    final List<ArticleResponse> responses = new ArrayList<>();
+                    final Map<String, ArticleResponse> responses = new HashMap<>();
 
                     for (final Article article : articleList) {
-                        responses.add(ArticleCastUtil.fromArticle(article));
+                        if (!responses.containsKey(article.url())) {
+                            responses.put(article.url(), castUtil.fromArticle(article));
+                        } else {
+                            responses.get(article.url()).addTopic(topicService.getTopicNameById(article.topicId()));
+                        }
+
                     }
 
                     LOG.debug("Successfully get all articles");
@@ -69,7 +83,7 @@ public final class ArticleController implements Controller {
                     return objectMapper.writeValueAsString(
                             new ArticleListResponse(
                                     responses.size(),
-                                    responses
+                                    responses.values().stream().toList()
                             )
                     );
                 }

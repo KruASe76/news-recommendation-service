@@ -34,7 +34,7 @@ public class SparkApplication implements SubApplication {
         final Authorizer authorizer = new BasicAuthorizer(service, userService);
 
         this.controllers = List.of(
-                new ArticleController(API_PREFIX, service, articleService, objectMapper, authorizer),
+                new ArticleController(API_PREFIX, service, articleService, websiteService, topicService, objectMapper, authorizer),
                 new TopicController(API_PREFIX, service, topicService, objectMapper, authorizer),
                 new UserController(API_PREFIX, service, userService, objectMapper, authorizer),
                 new WebsiteController(API_PREFIX, service, websiteService, objectMapper, authorizer)

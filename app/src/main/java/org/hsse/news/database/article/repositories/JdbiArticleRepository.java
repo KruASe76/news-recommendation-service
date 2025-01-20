@@ -82,15 +82,25 @@ public final class JdbiArticleRepository implements ArticleRepository {
 
     @Override
     public List<Article> getAllUnknown(final UserId userId) {
-        return jdbi.inTransaction(handle ->
-                handle.createQuery("SELECT * FROM articles " +
-                                "WHERE topic_id IN (SELECT topic_id FROM users WHERE user_id = :user_id AND " +
-                                ":user_id NOT IN (SELECT article_id FROM user_articles WHERE user_id - :user_id)) AND " +
-                                "website_id IN (SELECT website_id FROM users WHERE user_id = :user_id)"
-                        )
+        final String getQuery = "SELECT * FROM articles " +
+                "WHERE topic_id IN (SELECT topic_id FROM users WHERE user_id = :user_id AND " +
+                ":user_id NOT IN (SELECT article_id FROM user_articles WHERE user_id - :user_id)) AND " +
+                "website_id IN (SELECT website_id FROM users WHERE user_id = :user_id)";
+
+        final List<Article> articles = jdbi.inTransaction(handle ->
+                handle.createQuery(getQuery)
                         .bind("user_id", userId)
                         .mapTo(Article.class)
                         .collectIntoList()
         );
+
+        jdbi.inTransaction(handle ->
+                handle.createUpdate(
+                        "INSERT INTO user_articles (user_id, article_id) " +
+                                "SELECT user_id, article_id FROM " + getQuery
+                ).execute()
+        );
+
+        return articles;
     }
 }
