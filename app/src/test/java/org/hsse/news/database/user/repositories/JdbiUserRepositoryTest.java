@@ -67,7 +67,7 @@ class JdbiUserRepositoryTest {
     }
 
     @Test
-    void testAuthenticateSuccess() {
+    void testAuthenticateSuccess() {  // NOPMD
         final AuthenticationCredentials credentials =
                 new AuthenticationCredentials(
                         SampleDataUtil.DEFAULT_USER.email(),
@@ -193,7 +193,7 @@ class JdbiUserRepositoryTest {
     }
 
     @Test
-    void testDeleteUserNotFound() {
+    void testDeleteUserNotFound() {  // NOPMD
         assert SampleDataUtil.NEW_USER.id() != null;
         assertThrows(
                 UserNotFoundException.class,

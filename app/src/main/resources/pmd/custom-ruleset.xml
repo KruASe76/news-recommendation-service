@@ -7,6 +7,7 @@
 
     <rule ref="category/java/bestpractices.xml">
         <exclude name="GuardLogStatement"/>
+        <exclude name="UnitTestContainsTooManyAsserts"/>
     </rule>
     <rule ref="category/java/codestyle.xml">
         <exclude name="AtLeastOneConstructor"/>
@@ -15,9 +16,11 @@
         <exclude name="ShortClassName"/>
         <exclude name="ShortMethodName"/>
         <exclude name="ShortVariable"/>
+        <exclude name="TooManyStaticImports"/>
     </rule>
     <rule ref="category/java/design.xml">
         <exclude name="LawOfDemeter"/>
+        <exclude name="TooManyMethods"/>
     </rule>
     <rule ref="category/java/errorprone.xml">
         <exclude name="AvoidFieldNameMatchingMethodName"/>

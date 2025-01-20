@@ -2,8 +2,6 @@ package org.hsse.news.api.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hsse.news.api.authorizers.Authorizer;
-import org.hsse.news.database.user.models.UserId;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
