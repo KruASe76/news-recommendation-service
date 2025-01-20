@@ -337,9 +337,17 @@ components:
           type: string
           example: "Backend"
     TopicList:
-      type: array
-      items:
-        $ref: '#/components/schemas/Topic'
+      type: object
+      properties:
+        subscribed:
+          type: array
+          items:
+            $ref: '#/components/schemas/Topic'
+        other:
+          type: array
+          items:
+            $ref: '#/components/schemas/Topic'
+
     CustomTopic:
       type: object
       properties:
